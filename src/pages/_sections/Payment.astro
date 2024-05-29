@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import americanImage from "../../assets/img/common/payment/americanexpress.avif";
+import masterImage from "../../assets/img/common/payment/mastercard.avif";
+import visaImage from "../../assets/img/common/payment/visa.avif";
+
+const images = [
+  {
+    img: americanImage,
+    alt: "American Express payment method",
+  },
+  {
+    img: masterImage,
+    alt: "Mastercard payment method",
+  },
+  {
+    img: visaImage,
+    alt: "Visa payment method",
+  },
+];
+---
+
+<section class="py-16 w-full">
+  <div class="container m-auto flex flex-col items-center gap-10">
+    <h2
+      class="text-center text-3xl md:text-5xl font-semibold text-darkblue"
+    >
+      Payment methods
+    </h2>
+    <ul class="flex flex-wrap gap-3 w-full justify-evenly">
+      {
+        images.map(({ img, alt }) => (
+          <li>
+            <Image src={img} alt={alt} width={150} height={72} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

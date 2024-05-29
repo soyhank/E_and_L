@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+import CheckList from "../_components/CheckList.astro";
+import ServiceLayout from "../_components/ServiceLayout.astro";
+import coverImage from "./cover.jpg";
+import image1 from "./image1.jpg";
+import image2 from "./image2.jpg";
+import DualGrid from "../_components/DualGrid.astro";
+import FrequentlyQuestions from "../_components/FrequentlyQuestions.astro";
+import Layout from "../../../layouts/Layout.astro";
+import Cabinetry from "./_components/Cabinetry.astro";
+import { getServiceSeo } from "../../../utils/get_seo";
+
+const list = [
+  "Browse our design portfolio for kitchen inspiration",
+  "Craft your dream kitchen with our expert guidance.",
+];
+
+const unlockList = [
+  "Increase the appeal of your kitchen",
+  "Enhanced Culinary Enjoyment",
+  "Tailored Design and Practicality",
+  "Increase the likelihood of a resale",
+];
+
+const frequentlyQuestions = [
+  {
+    question: "How long does a kitchen remodeling project typically take?",
+    answer:
+      "Project timelines vary but generally range from a few weeks to a couple of months, depending on the scope and complexity.",
+  },
+  {
+    question: "What factors influence the cost of a kitchen remodel?",
+    answer:
+      "Costs depend on materials, fixtures, and the extent of the renovation. Customizations and structural changes can also impact the overall budget.",
+    defaultOpen: true,
+  },
+  {
+    question: "Do I need to obtain permits for a kitchen remodel?",
+    answer:
+      "Depending on the scope of work, permits may be required. Our team will guide you through the permitting process to ensure compliance.",
+  },
+  {
+    question: "Can I still use my kitchen during the remodeling process?",
+    answer:
+      "We aim to minimize disruptions. Temporary arrangements can be made, or alternative kitchen facilities may be provided, ensuring your convenience during the renovation.",
+  },
+];
+const slug = "kitchen-remodeling";
+const seo = getServiceSeo(slug);
+---
+
+<Layout seo={seo}>
+  <ServiceLayout image={coverImage} title="Kitchen Remodeling">
+    <p class="text-graytext">
+      Transform your kitchen with our top-notch remodeling services. Our skilled
+      team is committed to bringing your vision to life, creating a personalized
+      and functional space that goes above and beyond. From modern designs to
+      meticulous craftsmanship, we prioritize your satisfaction. We guide you
+      through the entire process, from selecting items to choosing finishes,
+      ensuring a stress-free journey from idea to completion. Upgrade your daily
+      cooking experience and enhance your home’s worth with our kitchen
+      remodeling service. Count on us to deliver quality, transforming your
+      kitchen into a space that mirrors your taste and meets the highest
+      standards. Ready for a refreshing change?
+    </p>
+    <CheckList size="large" items={list} class="my-5 gap-5" />
+    <Image src={image1} alt="Kitchen Remodeling" />
+    <p class="text-graytext my-5">
+      When an unknown printer took a galley of type and scrambled it to make a
+      type specimen book. It has survived not only five centuries, but also the
+      leap into electronic typesetting, remaining essentially unchanged not
+      finished yet again.
+    </p>
+    <DualGrid
+      image={image2}
+      title2="Benefits of remodeling your kitchen."
+      title3="Unlock the essence of Tranquility"
+      unlockList={unlockList}
+    />
+    <FrequentlyQuestions items={frequentlyQuestions} />
+  </ServiceLayout>
+  <Cabinetry />
+</Layout>

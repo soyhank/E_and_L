@@ -1,0 +1,41 @@
+---
+import { Icon } from "astro-icon/components";
+import BtnHover from "../../components/BtnHover.astro";
+import Layout from "../../layouts/Layout.astro";
+import heroImage from "../../assets/img/home/hero-bg-2.avif";
+import { Image } from "astro:assets";
+import Waving from "../../components/Waving";
+---
+
+<Layout title="Thank You - E and L Home Improvements">
+  <section class="min-h-[80vh] relative flex justify-center items-center overflow-hidden">
+    <Image
+      src={heroImage}
+      alt="E & L"
+      style={{
+        minWidth: "100%",
+        minHeight: "100%",
+        objectFit: "cover",
+        position: "absolute",
+        zIndex: -1,
+        opacity: 0.2,
+      }}
+    />
+    <div class="container m-auto">
+      <h1
+        class={"max-w-[900px] font-[700] text-5xl md:text-[72px] md:leading-[82px] font-chivo"}
+      >
+        Thanks for getting in touch!
+      </h1>
+      <p class={"text-[20px] mt-5 mb-7 font-roboto font-[7]"}>
+        We appreciate you contacting us. We will get back in touch with you
+        soon! Have a great day!
+      </p>
+      <BtnHover href="/" class="border border-black mb-10">
+        <span class="font-[600] font-chivo">Return Home</span>{" "}
+        <Icon name="arrow/right" />
+      </BtnHover>
+      <Waving client:load />
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Option = {
+  value: string;
+  label: string;
+};
+type Props = {
+  options: string[] | Option[];
+} & HTMLAttributes<"select">;
+
+const { options, name, class: className } = Astro.props;
+
+const optionsValues =
+  typeof options[0]! === "string"
+    ? (options as string[]).map((opt) => ({
+        label: opt,
+        value: opt,
+      }))
+    : (options as Option[]);
+---
+
+<select class:list={["bg-white px-3 py-2 rounded-md border border-[#C9C9C9] !m-0", className]} name={name} id={name}>
+  {
+    optionsValues.map((option) => (
+      <option value={option.value}>{option.label}</option>
+    ))
+  }
+</select>

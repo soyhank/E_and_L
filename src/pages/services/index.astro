@@ -1,0 +1,101 @@
+---
+import { Image } from "astro:assets";
+import { config, services } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+import type { SEOProps } from "astro-seo";
+import type { Schema } from "astro-seo-schema";
+
+const description =
+  "Embark on a culinary journey with our kitchen renovation expertise. Bid farewell to uninspiring spaces as we craft a modern, functional masterpiece";
+
+const seo: SEOProps = {
+  title: "Services - E and L Home Improvements",
+  description,
+  openGraph: {
+    basic: {
+      title: "Services- E and L Home Improvements",
+      type: "website",
+      image: "/metadata/services.jpg",
+    },
+    image: {
+      url: "/metadata/services.jpg",
+      width: 1200,
+      height: 628,
+    },
+  },
+  twitter: {
+    title: "Services - E and L Home Improvements",
+    description,
+    card: "summary_large_image",
+    image: "/metadata/services.jpg",
+    imageAlt: "Services - E and L Home Improvements",
+  },
+};
+
+const schema: Parameters<typeof Schema>[0] = {
+  item: {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "E and L Home Improvements",
+    description,
+    url: config.APP_BASE_URL + "/services",
+    image: config.APP_BASE_URL + "/metadata/services.jpg",
+  },
+};
+---
+
+<Layout seo={seo} schema={schema}>
+  <section class="container flex flex-col gap-6 py-10">
+    <h1
+      class="text-center text-darkblue font-medium text-4xl max-w-[720px] m-auto font-chivo"
+      ,
+    >
+      We are a premier home improvement and remodeling company serving Maryland
+      and Washington, DC.
+    </h1>
+    <p class="text-center text-graytext text-lg max-w-[720px] m-auto">
+      For the last 10 years, we have been seeking out challenges that will allow
+      us to learn and be better at what we do.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        services
+          .filter((service) => service.imageLargeY)
+          .map((service) => {
+            return (
+              <div
+                itemscope
+                itemtype="https://schema.org/Service"
+                class="border border-[#858585] max-w-[372px]"
+              >
+                <a href={`/services/${service.slug}`} itemprop="url" itemscope>
+                  <div class="overflow-hidden">
+                    <Image
+                      src={service.imageLargeY!}
+                      alt={service.name}
+                      width={694}
+                      height={486}
+                      class="duration-700 hover:scale-110"
+                    />
+                  </div>
+                  <hr class="my-1" />
+                  <h2
+                    itemprop="name"
+                    class="text-center bg-white px-10 text-xl mt-6 mb-2 font-chivo"
+                  >
+                    {service.fullName}
+                  </h2>
+                  <p
+                    itemprop="description"
+                    class="px-10 text-graytext text-center font-roboto mb-8"
+                  >
+                    {service.description}
+                  </p>
+                </a>
+              </div>
+            );
+          })
+      }
+    </div>
+  </section>
+</Layout>

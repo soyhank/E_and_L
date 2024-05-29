@@ -1,0 +1,45 @@
+---
+import Card from "../../components/Card.astro";
+import consultationImage from "../../assets/img/home/choose-us/personalized-consultation.avif";
+import designImage from "../../assets/img/home/choose-us/3d-design-presentation.avif";
+import seamlessImage from "../../assets/img/home/choose-us/seamless-project-execution.avif";
+
+type TItem = {
+  img: ImageMetadata;
+  title: string;
+  description: string;
+  number: number;
+};
+
+const items: Omit<TItem, "number">[] = [
+  {
+    img: consultationImage,
+    title: "Personalized Consultation",
+    description:
+      "We request essential details about your home improvement project. We need detailed information to thoroughly understand your needs and ensure that our solutions perfectly align with your expectations.",
+  },
+  {
+    img: designImage,
+    title: "3D Design Presentation",
+    description:
+      "We provide you with a complimentary three-dimensional visualization of your project, allowing you to see how it will look. Additionally, we include a detailed estimate to offer transparency regarding the financial aspects of the planned work.",
+  },
+  {
+    img: seamlessImage,
+    title: "Seamless Project Execution",
+    description:
+      "We commence the implementation of your improvement project seamlessly and efficiently. We commit to carrying out each phase with precision and professionalism to achieve exceptional results.",
+  },
+];
+---
+
+<section class="py-16">
+  <div class="container m-auto flex flex-col items-center gap-10">
+    <h2 class="text-center text-3xl md:text-5xl font-semibold text-darkblue">
+      Why Choose Us
+    </h2>
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {items.map((item, index) => <Card {...item} number={index + 1} />)}
+    </ul>
+  </div>
+</section>

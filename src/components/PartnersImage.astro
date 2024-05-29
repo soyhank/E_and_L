@@ -1,0 +1,19 @@
+---
+import { Image } from "astro:assets";
+import partnersImage from "../assets/img/landing2/partners.avif";
+
+type Props = {
+  class?: string;
+  [key: string]: any;
+}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<Image
+  src={partnersImage}
+  alt="E&L Partners"
+  id="contact"
+  class:list={["max-h-[280px] object-cover", className]}
+  {...props}
+/>

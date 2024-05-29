@@ -1,0 +1,81 @@
+---
+import { Icon } from "astro-icon/components";
+import CardTestimony from "../components/CardTestimony.astro";
+import { testimonies } from "../data";
+
+interface Props {
+  hideTitle?: boolean;
+  class?: string;
+}
+
+const { hideTitle = false, class: className } = Astro.props;
+---
+
+<section class:list={["w-full bg-white py-16 md:py-28 overflow-hidden", className]}>
+  <div class="container m-auto flex flex-col gap-10">
+    {
+      !hideTitle && (
+        <h2 class="text-center text-3xl text-darkblue">Testimonies</h2>
+      )
+    }
+    <div class="glide testimonies-glide relative">
+      <button
+        id="testimonies-glide-prev"
+        aria-label="prev"
+        class="absolute z-10 top-1/2 -translate-y-1/2 left-0 -translate-x-full"
+      >
+        <Icon name="core/chevron-left" size={48} />
+      </button>
+      <button
+        id="testimonies-glide-next"
+        aria-label="next"
+        class="absolute z-10 top-1/2 -translate-y-1/2 right-0 translate-x-full"
+      >
+        <Icon name="core/chevron-right" size={48} />
+      </button>
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          {
+            testimonies.map((testimony) => (
+              <li class="glide__slide">
+                <CardTestimony {...testimony} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="postcss">
+  .testimonies-glide {
+    @apply w-full;
+  }
+</style>
+
+<script>
+  import Glide from "@glidejs/glide";
+  import type Glide2 from "@glidejs/glide/dist/glide.modular.esm";
+  import "@glidejs/glide/dist/css/glide.core.css";
+
+  const glideMulti1 = new Glide(".testimonies-glide", {
+    type: "carousel",
+    autoplay: 3500,
+    perView: 3,
+    breakpoints: {
+      0: { perView: 1 },
+      650: { perView: 1 },
+      800: { perView: 2 },
+      1200: { perView: 3 },
+    },
+  }) as Glide2;
+
+  glideMulti1.mount();
+
+  const prev = document.getElementById("testimonies-glide-prev")!;
+  const next = document.getElementById("testimonies-glide-next")!;
+
+  prev.addEventListener("click", () => glideMulti1.go("<"));
+  next.addEventListener("click", () => glideMulti1.go(">"));
+</script>

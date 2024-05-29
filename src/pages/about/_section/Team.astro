@@ -1,0 +1,8 @@
+---
+import { team } from "../../../data";
+import CardPerson from "./CardPerson.astro";
+---
+
+<section class="flex flex-wrap gap-10 justify-center items-center place-items-center place-content-center">
+  {team.map((person) => <CardPerson {...person} />)}
+</section>

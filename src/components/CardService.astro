@@ -1,0 +1,35 @@
+---
+import type { ImageMetadata } from "astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+type Props = {
+  img: ImageMetadata;
+  link: string;
+  title: string;
+  description: string;
+};
+
+const { img, link, title, description } = Astro.props;
+---
+
+<article class="border border-[#E7E7E7] hover:shadow-2xl duration-700">
+  <Image
+    src={img}
+    alt={title}
+    width={360}
+    height={289}
+    class="w-full md:w-[360px] lg:w-full h-[289px] object-cover"
+  />
+  <div class="pt-[20px] px-[40px] flex flex-col items-center bg-white">
+    <a href={link}>
+      <h4 class="text-darkblue text-center text-xl font-[500] font-chivo">
+        {title}
+      </h4>
+    </a>
+  </div>
+  <p class="my-8 text-center mx-6 text-graytext">{description}</p>
+  <a href={link}>
+    <Icon name="arrow/right" class="m-auto my-6 text-xl cursor-pointer" />
+  </a>
+</article>

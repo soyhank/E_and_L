@@ -1,0 +1,33 @@
+---
+import Accordion from "../../../components/Accordion.astro";
+
+type Props = {
+  items: {
+    question: string;
+    answer: string;
+    defaultOpen?: boolean;
+  }[];
+};
+
+const { items } = Astro.props;
+---
+
+<section class="py-10 md:py-16 flex flex-col gap-10">
+  <h4 class="text-darkblue text-center text-2xl md:text-3xl font-chivo">
+    Frequently asked questions
+  </h4>
+
+  <div class="flex flex-col gap-3">
+    {
+      items.map((item) => {
+        return (
+          <Accordion
+            title={item.question}
+            content={item.answer}
+            defaultOpen={item.defaultOpen}
+          />
+        );
+      })
+    }
+  </div>
+</section>

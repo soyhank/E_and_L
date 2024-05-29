@@ -1,0 +1,42 @@
+---
+import { type Member } from "../../../data";
+import { Image } from "astro:assets";
+
+type Props = Member;
+
+const { title, name, image } = Astro.props;
+---
+
+<!-- CREA UN CARD PARA ESTA PERSONA -->
+<article
+  class:list={[
+    "overflow-hidden rounded-3xl shadow-md hover:shadow-xl py-5",
+    "border border-gray-100",
+    "w-full relative md:w-1/3 flex flex-col items-center text-center min-w-[300px] max-w-[340px]",
+    "card-person",
+  ]}
+>
+  <Image
+    src={image}
+    alt={name}
+    class="w-full h-full object-cover object-center max-w-[240px]"
+  />
+  <div class="py-2">
+    <h2 class="text-lg font-light text-gray-600">{title}</h2>
+    <p class="text-xl font-semibold">{name}</p>
+  </div>
+  <div class="w-full h-[33%] absolute bottom-0 bg-gray-100 z-[-1] wall"></div>
+</article>
+
+<style lang="postcss">
+.card-person, .card-person * {
+  @apply duration-300;
+}
+.card-person:hover .wall {
+  @apply bg-darkblue;
+}
+.card-person:hover h2,
+.card-person:hover p {
+  @apply text-white;
+}
+</style>

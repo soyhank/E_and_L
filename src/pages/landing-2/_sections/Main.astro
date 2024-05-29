@@ -1,0 +1,68 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import heroImg from "../../../assets/img/landing2/hero.avif";
+import workermanImg from "../../../assets/img/landing2/workerman.avif";
+import kitchenImg from "../../../assets/img/landing/kitchen.jpeg";
+
+const benefits = [
+  "Increase the appeal of your kitchen",
+  "Enhanced Culinary Enjoyment",
+  "Tailored Design and Practicality",
+  "Increase the likelihood of a resale",
+];
+---
+
+<Image
+  src={heroImg}
+  alt="At E&L Home Improvements you will find the best remodeling services."
+  class="max-h-[700px] min-h-[300px] md:object-contain object-cover object-right md:object-center"
+/>
+
+<section class="container">
+  <br />
+  <p>
+    At <span class="text-darkred">E&L Home Improvements</span>, we are committed
+    to transforming your kitchen with our first class remodeling services. Our
+    skilled team is committed to bringing your vision to life, creating a
+    customized and functional space. We guide you through the entire process,
+    from selecting items to choosing finishes, ensuring a stress-free journey
+    from start to finish on your remodeling project.
+  </p>
+  <br />
+  <p>
+    Count on us to provide quality service with specialized consultants,
+    transforming your kitchen into a space that reflects your tastes and meets
+    the highest standards. Ready for a refreshing change?
+  </p>
+  <br />
+</section>
+
+<section class="container flex flex-col md:flex-row gap-6 items-center">
+  <Image
+    class="md:max-w-[45%]"
+    src={kitchenImg}
+    alt="Benefits of remodeling your kitchen."
+  />
+
+  <div class="flex flex-col gap-4 justify-between h-full font-inria">
+    <div class="grid grid-cols-1 gap-4 md:pl-4">
+      <h2 class="text-darkred text-xl md:text-2xl font-bold leading-none">
+        Benefits of remodeling<br />your kitchen.
+      </h2>
+      <p>Unlock the essence of Tranquility</p>
+      <ul class="grid grid-cols-1 gap-2">
+        {
+          benefits.map((benefit) => (
+            <li class="flex gap-2 items-center">
+              <Icon name="core/check" class="text-darkred w-7 h-7 p-[2px]" />
+              <span class="text-graytext text-[14px]">{benefit}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <Image src={workermanImg} alt="E&L Home Improvements Worker" class="min-w-[200px]" />
+  </div>
+</section>

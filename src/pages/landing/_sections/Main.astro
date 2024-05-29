@@ -1,0 +1,86 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import logoImg from "../../../assets/img/logo-white-transparent.png";
+import heroImg from "../../../assets/img/landing/hero.avif";
+import kitchenImg from "../../../assets/img/landing/kitchen.jpeg";
+import Form from "./Form.astro";
+
+const benefits = [
+  "Increase the appeal of your kitchen",
+  "Enhanced Culinary Enjoyment",
+  "Tailored Design and Practicality",
+  "Increase the likelihood of a resale",
+];
+---
+
+<div>
+  <div class="relative m-auto overflow-hidden max-w-[1640px] md:h-[600px] h-[400px]"
+    style={`
+    background-image: url(${heroImg.src});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center right;
+    
+    `}
+  >
+    <Image
+      src={logoImg}
+      alt="Logo"
+      class="max-w-[140px]"
+      style="position: absolute; top: .5rem; left: 2rem; z-index: 10;"
+    />
+    <a href="#contact" class="absolute bottom-10 right-10 bg-darkred text-white px-6 py-3 text-xl rounded-full">CONTACT US!</a>
+  </div>
+</div>
+
+<br />
+
+<section class="container">
+  <h1 class="text-2xl md:text-3xl mb-2 font-bold">
+    COMMITMENT TO YOU, DESIGNING YOUR HOME!
+  </h1>
+  <p>
+    Welcome to <span class="text-darkred">E&L Home Improvements</span>, we are
+    committed to transforming your kitchen with our first class remodeling
+    services. Our skilled team is committed to bringing your vision to life,
+    creating a customized and functional space. We guide you through the entire
+    process, from selecting items to choosing finishes, ensuring a stress-free
+    journey from start to finish on your remodeling project.
+  </p>
+  <br />
+  <p>
+    Count on us to provide quality service with specialized consultants,
+    transforming your kitchen into a space that reflects your tastes and meets
+    the highest standards. Ready for a refreshing change?
+  </p>
+</section>
+
+<br />
+
+<section class="container flex flex-wrap md:flex-nowrap gap-6 items-center">
+  <Image
+    class="md:max-w-[60%]"
+    src={kitchenImg}
+    alt="Benefits of remodeling your kitchen."
+  />
+
+  <div class="grid grid-cols-1 gap-4">
+    <h2 class="text-darkred font-bold text-xl leading-none">
+      Benefits of remodeling<br />your kitchen.
+    </h2>
+    <p>Unlock the essence of Tranquility</p>
+    <ul class="grid grid-cols-1 gap-2">
+      {
+        benefits.map((benefit) => (
+          <li class="flex gap-2 items-center">
+            <Icon name="core/check" class="text-darkred w-7 h-7 p-[2px]" />
+            <span class="text-graytext text-[14px]">{benefit}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <h4 class="text-center font-bold mt-6">Get in touch</h4>
+    <Form size="small" class="m-auto" />
+  </div>
+</section>

@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+import project1 from "../../../assets/img/landing/projects/project1.jpeg";
+import project2 from "../../../assets/img/landing/projects/project2.jpeg";
+import project3 from "../../../assets/img/landing/projects/project3.jpeg";
+import project4 from "../../../assets/img/landing/projects/project4.png";
+import project5 from "../../../assets/img/landing/projects/project5.jpeg";
+import project6 from "../../../assets/img/landing/projects/project6.jpeg";
+
+const imgs = [project1, project2, project3, project4, project5, project6];
+---
+
+<section class="container">
+  <header class="flex items-center gap-2 mb-2">
+    <h2 class="text-darkred text-2xl md:text-3xl">OUR PROJECTS</h2>
+    <hr class="flex-1 border-t-[2px] border-gray-400" />
+  </header>
+  <ul class="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
+    {
+      imgs.map((img, index) => (
+        <Image
+          src={img}
+          alt={"Project Image " + (index + 1)}
+          class="h-full w-full object-cover object-center"
+        />
+      ))
+    }
+  </ul>
+</section>

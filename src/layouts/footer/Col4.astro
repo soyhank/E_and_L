@@ -1,0 +1,17 @@
+---
+import { services } from "../../data";
+---
+
+<ul class="hidden md:flex flex-col gap-6 text-base text-graytext">
+  {
+    services.slice(0, 5).map((service) => {
+      return (
+        <li>
+          <a class="foot-menu-serv" href={`/services/${service.slug}`}>
+            {service.name}
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>

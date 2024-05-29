@@ -1,0 +1,91 @@
+---
+import { Image } from "astro:assets";
+import hero1Image from "../../assets/img/home/hero/hero-1.avif";
+import hero2Image from "../../assets/img/home/hero/hero-2.avif";
+import hero3Image from "../../assets/img/home/hero/hero-3.avif";
+import hero4Image from "../../assets/img/home/hero/hero-4.avif";
+---
+
+<section class="hero glide w-full h-[700px] md:h-[800px] relative">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
+      <li class="glide__slide">
+        <Image
+          src={hero2Image}
+          alt={"Welcome to E & L Home Improvements"}
+          class="w-full h-[700px] md:h-[800px] object-cover object-center"
+        />
+      </li>
+      <li class="glide__slide">
+        <Image
+          src={hero3Image}
+          alt={"Welcome to E & L Home Improvements"}
+          class="w-full h-[700px] md:h-[800px] object-cover object-center"
+        />
+      </li>
+      <li class="glide__slide">
+        <Image
+          src={hero4Image}
+          alt={"Welcome to E & L Home Improvements"}
+          class="w-full h-[700px] md:h-[800px] object-cover object-center"
+        />
+      </li>
+      <li class="glide__slide">
+        <div class="w-full h-[700px] md:h-[800px] relative">
+          <Image
+            src={hero1Image}
+            alt={"Welcome to E & L Home Improvements"}
+            style={{
+              objectFit: "cover",
+              position: "absolute",
+              zIndex: -1,
+              minWidth: "100%",
+              height: "100%",
+            }}
+          />
+          <div
+            class="flex flex-col gap-3 text-center items-center justify-center h-full px-1 md:px-0"
+          >
+            <h3
+              class:list={[
+                "text-3xl",
+                "md:text-6xl text-white font-extrabold",
+                "animate-fade-up",
+              ]}
+              style={{ fontFamily: "Helvetica" }}
+            >
+              Welcome to <br> E & L Home <br> Improvements
+            </h3>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div
+    class="backdrop-blur-md bg-white/60 absolute left-0 bottom-0 flex flex-col items-center md:items-start gap-2 md:gap-4 px-4 py-6 md:px-14 md:py-16 max-w-[520px]"
+  >
+    <strong class="text-lg md:text-2xl lg:text-3xl text-center md:text-left"
+      >E & L Home Improvements</strong
+    >
+    <div class="h-[4px] bg-darkred w-[130px]"></div>
+    <p class="md:text-xl text-black/70 text-center md:text-left">
+      Elevate the Style and Comfort of your Home with Our Kitchen and Bathroom
+      Specialists
+    </p>
+  </div>
+</section>
+
+<script>
+  import Glide from "@glidejs/glide";
+  import "@glidejs/glide/dist/css/glide.core.css";
+
+  var glideHero = new Glide(".hero", {
+    type: "carousel",
+    animationDuration: 800,
+    autoplay: 3000,
+    focusAt: "1",
+    perView: 1,
+  });
+  glideHero.mount();
+</script>

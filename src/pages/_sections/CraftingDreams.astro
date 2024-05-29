@@ -1,0 +1,87 @@
+---
+import { Icon } from "astro-icon/components";
+import CardDream from "../../components/CardDream.astro";
+import { services } from "../../data";
+---
+
+<section class="container p-2 mb-10 overflow-hidden">
+  <div
+    class="bg-[#F8F8F9] p-6 md:p-16 text-center flex flex-col items-center gap-10 relative"
+  >
+    <Icon
+      name="core/triangle-bl"
+      class="absolute w-[70px] h-[70px] z-10 bottom-0 left-0"
+    />
+    <Icon
+      name="core/triangle-tr"
+      class="absolute w-[70px] h-[70px] z-10 top-[-6px] right-[-6px]"
+    />
+    <h3 class="text-darkblue text-3xl">Crafting Dreams.</h3>
+    <div class="glide dreams-glide relative">
+      <button
+        id="dreams-glide-prev"
+        aria-label="prev"
+        class="absolute z-10 top-1/2 -translate-y-1/2 left-0 -translate-x-full"
+      >
+        <Icon name="core/chevron-left" size={48} />
+      </button>
+      <button
+        id="dreams-glide-next"
+        aria-label="next"
+        class="absolute z-10 top-1/2 -translate-y-1/2 right-0 translate-x-full"
+      >
+        <Icon name="core/chevron-right" size={48} />
+      </button>
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          {
+            services
+              .filter((s) => s.image)
+              .map((service) => (
+                <li class="glide__slide">
+                  <CardDream
+                    title={service.name}
+                    description={service.excerpt}
+                    link={`/services/${service.slug}`}
+                    img={service.image}
+                  />
+                </li>
+              ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="postcss">
+  .dreams-glide {
+    @apply w-full;
+  }
+</style>
+
+<script>
+  import Glide from "@glidejs/glide";
+  import type Glide2 from "@glidejs/glide/dist/glide.modular.esm";
+  import "@glidejs/glide/dist/css/glide.core.css";
+
+  const glideMulti = new Glide(".dreams-glide", {
+    type: "carousel",
+    autoplay: 3500,
+    perView: 3,
+    breakpoints: {
+      0: { perView: 1 },
+      650: { perView: 1 },
+      800: { perView: 2 },
+      1200: { perView: 3 },
+    }
+  }) as Glide2;
+
+  glideMulti.mount();
+
+  const prev = document.getElementById("dreams-glide-prev")!;
+  const next = document.getElementById("dreams-glide-next")!;
+
+  prev.addEventListener("click", () => glideMulti.go("<"));
+  next.addEventListener("click", () => glideMulti.go(">"));
+</script>

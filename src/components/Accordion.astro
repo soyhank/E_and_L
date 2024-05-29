@@ -1,0 +1,78 @@
+---
+import { Icon } from 'astro-icon/components';
+
+type Props = {
+  title: string;
+  content: string;
+  defaultOpen?: boolean;
+};
+
+const { title, content, defaultOpen } = Astro.props;
+---
+
+<div class:list={["accordion", defaultOpen && "open"]}>
+  <header>
+    <span>
+      {title}
+    </span>
+    <Icon
+      name="core/chevron-top"
+      color="black"
+      size={24}
+      class="arrow-top transition-transform duration-300"
+    />
+  </header>
+  <main>
+    {content}
+  </main>
+</div>
+
+<style lang="postcss">
+  .accordion {
+    @apply flex flex-col border border-[#E7E7E7] ;
+  }
+  .accordion.open {
+    @apply gap-2;
+  }
+
+  .accordion header {
+    @apply text-darkblue font-chivo text-[18px] py-4 px-6;
+    @apply cursor-pointer flex justify-between items-center transition-all duration-300;
+  }
+  .accordion.open header {
+    @apply bg-black text-white;
+  }
+  .accordion header:hover {
+    @apply bg-black text-white;
+  }
+  .accordion header:hover .arrow-top {
+    @apply text-white;
+  }
+  .accordion.open .arrow-top {
+    @apply rotate-0 text-white;
+  }
+  .arrow-top {
+    @apply rotate-180;
+  }
+
+  .accordion main {
+    @apply overflow-hidden h-full max-h-0 transition-all duration-300 py-0 px-6 opacity-0 text-graytext font-roboto;
+  }
+  .accordion.open main {
+    @apply max-h-[500px] py-4 opacity-100;
+  }
+</style>
+
+<script>
+  const accordions = document.querySelectorAll(
+    ".accordion"
+  ) as NodeListOf<HTMLElement>;
+
+  accordions.forEach((accordion) => {
+    const header = accordion.querySelector("header") as HTMLHeadingElement;
+
+    header.addEventListener("click", () => {
+      accordion.classList.toggle("open");
+    });
+  });
+</script>

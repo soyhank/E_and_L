@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import type { Testimony } from "../data";
+import { Icon } from "astro-icon/components";
+
+type Props = Testimony & {
+  stars?: number;
+  className?: string;
+};
+
+const {
+  sourceLink,
+  sourceName,
+  authorName,
+  authorImage,
+  title,
+  stars = 5,
+  className,
+  description,
+} = Astro.props;
+---
+
+<a
+  href={sourceLink}
+  target="_blank"
+  class:list={[
+    "relative text-center border border-[#E7E7E7] hover:shadow-2xl duration-700 inline-block",
+    className,
+  ]}
+>
+  <article class="w-full">
+    <header class="flex flex-col items-center pt-8 pb-4">
+      <Image
+        src={authorImage}
+        alt={authorName}
+        width={107}
+        height={107}
+        class={"rounded-full w-[107px]"}
+      />
+      <div>
+        <h3 class="text-darkblue font-roboto font-[700]">{authorName}</h3>
+        <p class="text-sm text-graytext">{sourceName}</p>
+      </div>
+    </header>
+    <hr />
+    <main class="p-8 flex flex-col gap-6">
+      <strong class="text-lg text-darkblue font-roboto font-[700]">{title}</strong>
+      <p>{description}</p>
+      <footer class="flex justify-center items-center gap-1">
+        {
+          Array.from({
+            length: stars,
+          }).map((_) => <Icon name="core/star" />)
+        }
+      </footer>
+    </main>
+  </article>
+</a>

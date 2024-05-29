@@ -1,0 +1,79 @@
+---
+import CheckList from "../_components/CheckList.astro";
+import ServiceLayout from "../_components/ServiceLayout.astro";
+import coverImage from "./cover.jpg";
+import image1 from "./image1.jpg";
+import DualGrid from "../_components/DualGrid.astro";
+import Layout from "../../../layouts/Layout.astro";
+import FrequentlyQuestions from "../_components/FrequentlyQuestions.astro";
+import { getServiceSeo } from "../../../utils/get_seo";
+
+const list = [
+  "Expand the possibilities of your home with our visionary dwelling addition services, where thoughtful design meets seamless integration for a space that grows with you.",
+  "Unlock new dimensions of comfort and space with our bespoke dwelling addition solutions, tailored to meet your unique lifestyle and elevate your living experience.",
+];
+
+const unlockList = [
+  "Expanded Living Space",
+  "Increased Home Value",
+  "Enhanced Energy Efficiency",
+  "Personalized Aesthetic",
+];
+
+const frequentlyQuestions = [
+  {
+    question: "How long does a typical dwelling addition project take?",
+    answer:
+      "Timelines vary based on the project scope, ranging from a few weeks for cosmetic changes to a few months for extensive renovations.",
+  },
+  {
+    question:
+      "Are there specific regulations or permits required for dwelling addition services?",
+    answer:
+      "Permit requirements vary by location and project scope. Our team will guide you through the necessary permits to ensure compliance.",
+    defaultOpen: true,
+  },
+  {
+    question: "Can I stay home in my during the dwelling addition process?",
+    answer:
+      "We work to minimize disruptions. Temporary arrangements or alternative spaces can be discussed for your convenience during the renovation.",
+  },
+  {
+    question: "What factors influence the cost of a dwelling addition service?",
+    answer:
+      "Costs depend on the project's complexity, materials used, and any structural changes. Customizations and high-end finishes can also impact the overall budget.",
+  },
+];
+const slug = "dwelling-addition";
+const seo = getServiceSeo(slug);
+---
+
+<Layout seo={seo}>
+  <ServiceLayout image={coverImage} title="Dwelling Addition">
+    <p class="text-graytext">
+      Unlock the full potential of your home with our top-tier dwelling addition
+      services. From concept to completion, we specialize in crafting seamless
+      expansions and bespoke designs that seamlessly integrate with your
+      existing space. Elevate your living experience with our expert team,
+      dedicated to transforming houses into dream homes. Explore our portfolio
+      and envision the possibilities of your personalizaed dwelling addition
+      project. Trust us to redefine your home’s potential with precision,
+      creativity, and unmatched craftmanship.
+    </p>
+    <CheckList size="large" items={list} class="my-5 gap-5" />
+    <p class="text-graytext my-5">
+      Experience the extraordinary with our dwelling addition service, where
+      innovation and transformation converge. Trust us to convert your home into
+      a personalized sanctuary with our seamless dwelling additions that mirrors
+      your lifestyle, adding both value and comfort to your home. Contact us
+      today and redefine your living space.
+    </p>
+    <DualGrid
+      image={image1}
+      title2="Dwelling Addition Benefits"
+      title3="Unleash Hidden Potential: Discover the Versatile Advantages That Come with Our Dewlling Addition Services"
+      unlockList={unlockList}
+    />
+    <FrequentlyQuestions items={frequentlyQuestions} />
+  </ServiceLayout>
+</Layout>

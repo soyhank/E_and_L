@@ -1,0 +1,74 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = {
+  href?: string;
+  class?: string;
+} & HTMLAttributes<"button"> & HTMLAttributes<"a">;
+const { href, class: className, ...props } = Astro.props;
+---
+
+{
+  href ? (
+    <a href={href} class:list={["mask-btn", className]} {...props}>
+      <span>
+        <slot />
+      </span>
+    </a>
+  ) : (
+    <button class:list={["mask-btn", className]} {...props}>
+      <span>
+        <slot />
+      </span>
+    </button>
+  )
+}
+
+<script>
+  const buttons = document.querySelectorAll(
+    ".mask-btn"
+  ) as NodeListOf<HTMLButtonElement>;
+
+  buttons.forEach((btn) => {
+    const fn: (this: HTMLElement, ev: MouseEvent) => void = (e) => {
+      const x = e.pageX - btn.offsetLeft;
+      const y = e.pageY - btn.offsetTop;
+      btn.style.setProperty("--x", `${x}px`);
+      btn.style.setProperty("--y", `${y}px`);
+    };
+
+    btn.addEventListener("mousemove", fn);
+  });
+</script>
+
+<style lang="postcss">
+  .mask-btn {
+    @apply bg-darkred text-white cursor-pointer;
+    @apply relative inline-flex px-8 py-4 overflow-hidden;
+    @apply tracking-[1px];
+    transition: all 0.6s ease-in-out;
+  }
+  .mask-btn > span {
+    @apply flex items-center justify-center gap-2 w-full;
+    @apply relative z-[1] text-center;
+  }
+  .mask-btn::before {
+    @apply absolute bg-darkblue;
+    content: "";
+    top: var(--y);
+    left: var(--x);
+    transform: translate(-50%, -50%);
+    font-family: Chivo;
+    position: absolute;
+    border-radius: 50%;
+    width: 0;
+    height: 0;
+    transition: all 0.6s ease-in-out;
+    opacity: 0.6;
+  }
+  .mask-btn:hover::before {
+    width: 250%;
+    height: 400px;
+    opacity: 1;
+  }
+</style>

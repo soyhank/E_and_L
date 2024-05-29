@@ -1,0 +1,9 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"input">;
+
+const { class: className, name, ...props } = Astro.props;
+---
+
+<input class:list={["bg-white px-3 py-2 border rounded-md border-[#C9C9C9] !m-0", className]} id={name} name={name} {...props} />

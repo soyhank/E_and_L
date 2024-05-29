@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import googleImage from "../assets/img/common/reviews/google.png";
+import homeguideImage from "../assets/img/common/reviews/homeguide.avif";
+import yelpImage from "../assets/img/common/reviews/yelp.avif";
+import thumbtackImage from "../assets/img/common/reviews/thumbtack.avif";
+import facebookImage from "../assets/img/common/reviews/facebook.avif";
+
+const images = [
+  { img: googleImage, alt: "Google reviews" },
+  { img: facebookImage, alt: "Facebook reviews" },
+  { img: yelpImage, alt: "Yelp reviews" },
+  { img: thumbtackImage, alt: "Thumbtack reviews" },
+  { img: homeguideImage, alt: "Homeguide reviews" },
+];
+---
+
+<section class="py-16">
+  <div class="container m-auto flex flex-col items-center gap-10">
+    <h2
+      class="text-center text-3xl md:text-5xl font-semibold text-darkblue"
+    >
+      Prizes and reviews
+    </h2>
+    <ul class="grid grid-cols-1 md:grid-cols-5 gap-4">
+      {
+        images.map(({ img, alt }) => (
+          <li>
+            <Image src={img} alt={alt} width={300} height={105} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

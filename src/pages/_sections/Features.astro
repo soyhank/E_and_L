@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import craftsmanshipImage from "../../assets/img/home/features/svg/hand-stars-2.avif";
+import warrantyImage from "../../assets/img/home/features/svg/warranty-2.avif";
+import toolsImage from "../../assets/img/home/features/svg/tools-2.avif";
+import lightbulbImage from "../../assets/img/home/features/svg/lightbulb-2.avif";
+import interiorRockImage from "../../assets/img/home/features/interior-rock.avif";
+
+const items = [
+  {
+    img: craftsmanshipImage,
+    title: "Craftsmanship & Satisfaction",
+    description:
+      "Specialize in crafting exceptional bathrooms and kitchens. We take pride in delivering top-notch craftsmanship and ensuring your satisfaction. Your dream space is our commitment.",
+  },
+  {
+    img: warrantyImage,
+    title: "Two-Year Labor Warranty",
+    description:
+      "We offer a two-year labor warranty to ensure the quality and durability of our work. Trust in our commitment to excellence and enjoy peace of mind long after your project is complete.",
+  },
+  {
+    img: toolsImage,
+    title: "Free Estimate and Design",
+    description:
+      "Get in touch with us for a FREE estimate and design consultation. We’re here to guide you through your questions and turn your vision into a reality",
+  },
+  {
+    img: lightbulbImage,
+    title: "Visualize Your Dream",
+    description:
+      "Step into your envisioned space before it's real. We're dedicated to realizing your vision in every part of your home, ensuring detailed alignment with your expectations for a confident transformation.",
+  },
+];
+---
+
+<section class="py-16">
+  <div class="container m-auto flex flex-col items-center gap-10">
+    <h2
+      class="text-center text-3xl md:text-[40px] leading-[2.75rem] text-darkblue max-w-[720px]"
+    >
+      Elevates the way they perceive your home.
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 place-items-center">
+      <div class="flex flex-col gap-6">
+        <h3 class="text-2xl md:text-3xl text-darkblue font-medium">
+          When we design a structure, it will be there for the long haul
+        </h3>
+        <hr class="w-[96px] h-[5px] bg-darkblue" />
+        <ul class="grid grid-cols-2 gap-10 place-items-start">
+          {
+            items.map((item) => (
+              <li class="flex flex-col gap-3">
+                <Image
+                  src={item.img}
+                  alt={item.title}
+                  width={64}
+                  height={64}
+                  class="w-[64px] h-[64px] object-contain object-center"
+                />
+                <h4 class="text-darkblue text-xl">{item.title}</h4>
+                <p class="text-graytext">{item.description}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <Image
+        src={interiorRockImage}
+        alt="Interior Rock"
+        width={730}
+        height={972}
+      />
+    </div>
+  </div>
+</section>

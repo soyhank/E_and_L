@@ -1,0 +1,60 @@
+---
+import Header from "./_sections/Header.astro";
+import Main from "./_sections/Main.astro";
+import Contact from "./_sections/Contact.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Projects from "./_sections/Projects.astro";
+import Cabinetry from "./../../pages/services/kitchen-remodeling/_components/Cabinetry.astro";
+import bgTestimonials from "../../assets/img/landing2/bg-testimonials.avif";
+import { Image } from "astro:assets";
+import Reviews from "../../components/Reviews.astro";
+import Testimonies from "../../components/Testimonies.astro";
+import PartnersImage from "../../components/PartnersImage.astro";
+---
+
+<BaseLayout title="E&L Home Improvements">
+  <div class="grid grid-cols-1">
+    <Header />
+    <Main />
+    <br />
+    <Projects />
+    <br />
+    <br />
+    <section class="container">
+      <h2 class="text-2xl md:text-3xl text-center font-inter text-darkblue">
+        CABINET OPTIONS
+      </h2>
+      <Cabinetry title="" description="" class="pt-0" />
+    </section>
+    <PartnersImage id="contact" />
+    <Contact />
+    <section class="relative">
+      <Image
+        src={bgTestimonials}
+        alt="Testimonials"
+        class="w-full object-cover absolute h-full z-[-1] bg-no-repeat"
+      />
+      <div class="p-8 md:p-16">
+        <h2 class="text-darkred text-xl md:text-3xl text-center">
+          Testimonials
+        </h2>
+      </div>
+      <Testimonies class="bg-transparent !pt-0" hideTitle />
+    </section>
+    <Reviews />
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108047.0975507415!2d-77.09263787082257!3d39.13943528097029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7da69535f3663%3A0x308f85811d3088dd!2s17214%20Emerson%20Dr%2C%20Silver%20Spring%2C%20MD%2020905%2C%20EE.%20UU.!5e0!3m2!1ses-419!2spe!4v1714092526975!5m2!1ses-419!2spe"
+      height="450"
+      width="100%"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <footer class="text-[#858585] bg-white">
+      <div class="container text-center pb-6">
+        <hr class="my-6" />
+        <p>Copyright © 2023 E & L Home Improvements, All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+</BaseLayout>

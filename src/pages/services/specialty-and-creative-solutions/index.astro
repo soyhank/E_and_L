@@ -1,0 +1,79 @@
+---
+import CheckList from "../_components/CheckList.astro";
+import ServiceLayout from "../_components/ServiceLayout.astro";
+import coverImage from "./cover.jpg";
+import image1 from "./image1.jpg";
+import DualGrid from "../_components/DualGrid.astro";
+import FrequentlyQuestions from "../_components/FrequentlyQuestions.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { getServiceSeo } from "../../../utils/get_seo";
+
+const list = [
+  "Our devoted team excels in transforming challenges into opportunities, offering unique and tailored answers that redefine success with our specialty and creative solutions service.",
+  "Our specialty lies in thinking beyond the conventional, offering a fresh perspective that transforms ideas into impactful realities. Explore the limitless possibilities with our commitment to providing specialty and creative solutions that elevate your projects.",
+];
+
+const unlockList = [
+  "Tailored Solutions",
+  "Innovative Problem-Solving",
+  "Versatility and Flexibility",
+  "Agile Adaptation",
+];
+
+const frequentlyQuestions = [
+  {
+    question: "How long does a typical dwelling addition project take?",
+    answer:
+      "Timelines vary based on the project scope, ranging from a few weeks for cosmetic changes to a few months for extensive renovations.",
+  },
+  {
+    question:
+      "Are there specific regulations or permits required for dwelling addition services?",
+    answer:
+      "Permit requirements vary by location and project scope. Our team will guide you through the necessary permits to ensure compliance.",
+    defaultOpen: true,
+  },
+  {
+    question: "Can I stay in my during the dwelling addition process?",
+    answer:
+      "We work to minimize disruptions. Temporary arrangements or alternative spaces can be discussed for your convenience during the renovation.",
+  },
+  {
+    question: "What factors influence the cost of a dwelling addition service?",
+    answer:
+      "Costs depend on the project's complexity, materials used, and any structural changes. Customizations and high-end finishes can also impact the overall budget.",
+  },
+];
+
+const slug = "specialty-and-creative-solutions";
+const seo = getServiceSeo(slug);
+---
+
+<Layout seo={seo}>
+  <ServiceLayout image={coverImage} title="Specialty and Creative Solutions">
+    <p class="text-graytext">
+      Elevate your projects with our specialized touch and creative solutions
+      services at E&L Home improvements. We specialize in crafting unique and
+      tailor-made answers to your challenges. Our team thrives on turning
+      complexity into simplicity, offering expertise and creativity in every
+      project. Experience the extraordinary with our specialty and creative
+      solutions service, where innovation and transformation converge.
+    </p>
+    <CheckList size="large" items={list} class="my-5 gap-5" />
+    <p class="text-graytext my-5">
+      Trust us for specialty and creative solutions that redefine success. .
+      From bespoke designs to innovative problem-solving, we bring a unique
+      perspective to every endeavor. Experience the transformative power of our
+      specialty and creative solutions, tailored to exceed your expectations and
+      make your vision a reality.
+    </p>
+    <DualGrid
+      image={image1}
+      title2="Specialty and Creative Solutions Benefits"
+      title3="Unleash Hidden Potential: Discover the Versatile Advantages That Come with Our Specialty and Creative Solutions Services"
+      unlockList={unlockList}
+    />
+
+    <FrequentlyQuestions items={frequentlyQuestions} />
+  </ServiceLayout>
+</Layout>

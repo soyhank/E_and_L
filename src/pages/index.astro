@@ -1,0 +1,121 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "./_sections/Hero.astro";
+import ChooseUs from "./_sections/ChooseUs.astro";
+import Features from "./_sections/Features.astro";
+import Payment from "./_sections/Payment.astro";
+import CraftingDreams from "./_sections/CraftingDreams.astro";
+import Numbers from "./_sections/Numbers.astro";
+import type { SEOProps } from "astro-seo";
+import type { Schema } from "astro-seo-schema";
+import { config } from "../data";
+import Reviews from "../components/Reviews.astro";
+import Testimonies from "../components/Testimonies.astro";
+
+const seo: SEOProps = {
+  title: "E and L Home Improvements",
+  description:
+    "Welcome to E and L Home Improvements, your trusted partner for comprehensive home transformations. At E and L, we specialize in top-notch home improvements, focusing on key areas such as bathroom and kitchen remodeling, basement transformations, precise painting, and all-encompassing maintenance.",
+  openGraph: {
+    basic: {
+      title: "E and L Home Improvements",
+      type: "website",
+      image: "/metadata/logo-extralarge.jpg",
+    },
+    image: {
+      url: "/metadata/logo-extralarge.jpg",
+      width: 1200,
+      height: 628,
+    },
+  },
+  twitter: {
+    title: "E and L Home Improvements",
+    description:
+      "Welcome to E and L Home Improvements, your trusted partner for comprehensive home transformations. At E and L, we specialize in top-notch home improvements, focusing on key areas such as bathroom and kitchen remodeling, basement transformations, precise painting, and all-encompassing maintenance.",
+    card: "summary_large_image",
+    image: "/metadata/logo-extralarge.jpg",
+    imageAlt: "E and L Home Improvements",
+  },
+};
+
+const schema: Parameters<typeof Schema>[0] = {
+  item: {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    name: "E and L Home Improvements",
+    description:
+      "Welcome to E and L Home Improvements, your trusted partner for comprehensive home transformations. At E and L, we specialize in top-notch home improvements, focusing on key areas such as bathroom and kitchen remodeling, basement transformations, precise painting, and all-encompassing maintenance.",
+    url: config.APP_BASE_URL,
+    image: config.APP_BASE_URL + "/metadata/logo-extralarge.jpg",
+    logo: {
+      "@type": "ImageObject",
+      url: config.APP_BASE_URL + "/logo.avif",
+      name: "E and L Home Improvements",
+    },
+    email: config.contact.email.contact,
+    address: {
+      "@type": "PostalAddress",
+      ...config.contact.address,
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: 5,
+      reviewCount: 41,
+      ratingCount: 41,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Monday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Tuesday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Wednesday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Thursday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Friday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+    ],
+  },
+};
+---
+
+<Layout seo={seo} schema={schema}>
+  <Hero />
+  <ChooseUs />
+  <Features />
+  <Reviews />
+  <Payment />
+  <Testimonies />
+  <CraftingDreams />
+  <Numbers />
+</Layout>

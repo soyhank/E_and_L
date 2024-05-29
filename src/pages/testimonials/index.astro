@@ -1,0 +1,72 @@
+---
+import { Icon } from "astro-icon/components";
+import {
+  testimonialsGrouped,
+  sources,
+  type TTestimonial,
+} from "../../data";
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Wcelcome to Astro.">
+  <section class="container flex flex-col gap-10 py-16">
+    <h1 class="text-2xl md:text-4xl text-darkblue text-center font-chivo">
+      Testimonials
+    </h1>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {
+        testimonialsGrouped.map((testimonialGroup) => (
+          <div class="flex flex-col items-stretch gap-10">
+            {testimonialGroup.map((testimon: TTestimonial) => (
+              <a href={testimon.sourceLink} target="_blank">
+                <article class="bg-[#F1F8FF] rounded-xl shadow-lg p-5">
+                  <h3 class="font-semibold text-graytext font-chivo">
+                    {testimon.service}
+                  </h3>
+                  <div class="flex items-center gap-2">
+                    <span class="text-green-600">
+                      {testimon.stars.toFixed(1)}
+                    </span>
+                    <div class="flex gap-1">
+                      {Array.from({ length: testimon.stars }, (_) => (
+                        <Icon
+                          name="core/star"
+                          fill="#F7B80C"
+                          stroke="#F7B80C"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <small class="text-graytext font-roboto">{testimon.date}</small>
+                  <p class="text-sm font-roboto text-graytext my-3">{testimon.description}</p>
+                  <footer class="flex items-center gap-4">
+                    <Image
+                      src={testimon.userImage}
+                      alt={testimon.userName}
+                      width={64}
+                      height={64}
+                      class="w-[64px] h-[64px] rounded-full"
+                    />
+                    <div class="flex flex-col">
+                      <p class="text-gray-800 font-medium">
+                        {testimon.userName}
+                      </p>
+                      <Image
+                        src={sources[testimon.sourceType]}
+                        alt={`Testimonial from ${testimon.userName} - ${testimon.sourceType}`}
+                        width={20}
+                        height={20}
+                        class="rounded-full"
+                      />
+                    </div>
+                  </footer>
+                </article>
+              </a>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

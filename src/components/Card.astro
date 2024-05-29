@@ -1,0 +1,22 @@
+---
+import Image from "astro/components/Image.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  number: number;
+  img: ImageMetadata;
+}
+
+const { img, title, number, description } = Astro.props;
+---
+
+<li class="flex flex-col gap-3">
+  <Image src={img} alt={title} class="w-[694px]" width={694} height={486} />
+  <h3 class={"text-darkblue text-xl font-bold font-montserrat"}>
+    {number}
+    {`)`}
+    {title}
+  </h3>
+  <p class="text-graytext font-roboto">{description}</p>
+</li>

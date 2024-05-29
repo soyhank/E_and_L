@@ -1,0 +1,56 @@
+---
+import { services } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+import type { SEOProps } from "astro-seo";
+// import CardProject from "../../components/CardProject.astro";
+import CardProject2 from "../../components/CardProject2.astro";
+
+const description =
+  "To successfully solve all the issues related to construction, we have established longterm and stable partnerships with various clients";
+const title = "Portfolio - E and L Home Improvements";
+
+const seo: SEOProps = {
+  title,
+  description,
+  openGraph: {
+    basic: {
+      title,
+      type: "website",
+      image: "/metadata/projects.png",
+    },
+    image: {
+      url: "/metadata/projects.png",
+      width: 1200,
+      height: 628,
+    },
+  },
+  twitter: {
+    title,
+    description,
+    card: "summary_large_image",
+    image: "/metadata/projects.png",
+    imageAlt: title,
+  },
+};
+---
+
+<Layout seo={seo}>
+  <div class="bg-[#F2EFEA] py-10">
+    <section class="container flex flex-col gap-6">
+      <h1
+        class="text-center text-darkblue font-[500] text-3xl md:text-4xl max-w-[920px] m-auto font-chivo"
+      >
+        Explore our portfolio, where visions become surprising reality.
+      </h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {
+          services
+            .filter((s) => s.imageProjects)
+            .map((projectCategory) => {
+              return <CardProject2 projectCategory={projectCategory} />;
+            })
+        }
+      </div>
+    </section>
+  </div>
+</Layout>

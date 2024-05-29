@@ -1,0 +1,11 @@
+---
+import { Image } from "astro:assets";
+import logoImage from "../../../assets/img/logo.avif";
+---
+
+<header class="sticky top-0 left-0 z-[10] py-2 bg-white" style="border-bottom: 2px solid #7d0000;">
+  <div class="container flex justify-between items-center">
+    <Image src={logoImage} alt="Logo" width={100} height={70} />
+    <a href="#contact" class="bg-darkred text-white px-4 py-2 rounded-md"> Contact </a>
+  </div>
+</header>

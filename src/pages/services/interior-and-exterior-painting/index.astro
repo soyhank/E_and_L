@@ -1,0 +1,85 @@
+---
+import CheckList from "../_components/CheckList.astro";
+import ServiceLayout from "../_components/ServiceLayout.astro";
+import coverImage from "./cover.jpg";
+import image1 from "./image1.jpg";
+import DualGrid from "../_components/DualGrid.astro";
+import Layout from "../../../layouts/Layout.astro";
+import FrequentlyQuestions from "../_components/FrequentlyQuestions.astro";
+import { getServiceSeo } from "../../../utils/get_seo";
+
+const list = [
+  "Transform your space with our premium interior and exterior painting services, where meticulous craftsmanship meets a palette of possibilities to redefine the beauty of your home.",
+  "Elevate your space with our premium interior and exterior painting services, where expert craftsmanship meets a palette of creative possibilities.",
+];
+
+const unlockList = [
+  "Enhanced Aesthetics",
+  "Increased Property Value",
+  "Energy Efficiency",
+  "Quick and Efficient Upgrade",
+];
+
+const frequentlyQuestions = [
+  {
+    question:
+      "How long does an interior and exterior painting project typically take?",
+    answer:
+      "Project timelines vary, depending on the scope and complexity, ranging from weeks to months.",
+  },
+  {
+    question:
+      "What factors influence the cost of an interior and exterior painting job?",
+    answer:
+      "Costs depend on materials, the extent of the renovation, and specific design choices.",
+    defaultOpen: true,
+  },
+  {
+    question:
+      "Do I need permits for an interior and exterior painting project?",
+    answer:
+      "Permit requirements vary by location and project scope. We assist in navigating the necessary permits.",
+  },
+  {
+    question:
+      "Can I customize the design during the exterior remodeling process?",
+    answer:
+      "Yes, we offer customization options. Our team works closely with clients to ensure their unique preferences are incorporated.",
+  },
+];
+const slug = "interior-and-exterior-painting";
+const seo = getServiceSeo(slug);
+---
+
+<Layout seo={seo}>
+  <ServiceLayout image={coverImage} title="Interior and Exterior Painting">
+    <p class="text-graytext">
+      Transform your home’s interior and exterior with our professional
+      “Interior and Exterior Painting” service. Our expert team specializes in
+      enhancing curb appeal and functionality, delivering innovative designs and
+      meticulous craftsmanship. From refreshing siding to upgrading outdoor and
+      indoor spaces, our “Interior and Exterior Painting” service elevates your
+      home’s aesthetics and value. We prioritize durability and weather
+      resistance, offering a range of options tailored to your preferences.
+      Explore versatile designs that seamlessly blend with your surroundings,
+      ensuring a personalized touch for every project. Our commitment extends
+      beyond renovation; we strive to create exteriors that make a lasting
+      impression and withstand the test of time.
+    </p>
+    <CheckList size="large" items={list} class="my-5 gap-5" />
+    <p class="text-graytext my-5">
+      Elevate your surroundings with our expert interior and exterior painting
+      services. Transform your indoor spaces with personalized color palettes
+      that reflect your style, and enhance your property’s curb appeal with
+      professional exterior coatings. Trust us for a seamless and vibrant
+      transformation that brings your vision to life.
+    </p>
+    <DualGrid
+      image={image1}
+      title2="Exterior Remodeling Benefits"
+      title3="Unveil Your Home's Potential"
+      unlockList={unlockList}
+    />
+    <FrequentlyQuestions items={frequentlyQuestions} />
+  </ServiceLayout>
+</Layout>

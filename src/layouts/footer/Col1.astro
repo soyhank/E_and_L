@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import logoImage from "../../assets/img/logo.avif";
+---
+
+<div class="md:max-w-[260px]">
+  <a href="/">
+    <Image src={logoImage} alt="Logo" width={100} height={70} />
+  </a>
+
+  <table>
+    <tbody class="text-base">
+      <tr class="h-14">
+        <td>
+          <Icon name="core/map-pin" size={16} class="mr-2" />
+        </td>
+        <td class="text-[#969696] text-md font-[700]" ,>
+          17214 Emerson Dr., Silver Spring, MD 20905
+        </td>
+      </tr>
+      <tr class="h-14">
+        <td>
+          <Icon name="core/clock" size={16} class="mr-2" />
+        </td>
+        <td class="text-[#969696] text-md font-[700]" ,>
+          Monday - Friday : 8:00am - 5:00pm
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

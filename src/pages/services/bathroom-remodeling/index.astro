@@ -1,0 +1,74 @@
+---
+import CheckList from "../_components/CheckList.astro";
+import ServiceLayout from "../_components/ServiceLayout.astro";
+import coverImage from "./cover.jpg";
+import image1 from "./image1.jpg";
+import DualGrid from "../_components/DualGrid.astro";
+import Layout from "../../../layouts/Layout.astro";
+import FrequentlyQuestions from "../_components/FrequentlyQuestions.astro";
+import { getServiceSeo } from "../../../utils/get_seo";
+
+const list = [
+  "We assist throughout, making the remodeling process seamless.",
+  "Tailored blueprints for a bathroom that suits your style.",
+];
+
+const unlockList = [
+  "Increased Property Value",
+  "Improved Bathing Experience",
+  "Energy-Efficient Upgrades",
+  "Customized Style and Functionality",
+];
+
+const frequentlyQuestions = [
+  {
+    question: "How long does a Bathroom remodeling project typically take?",
+    answer:
+      "Project timelines vary but generally range from a two weeks to a month, depending on the scope and complexity.",
+  },
+  {
+    question: "What factors influence the cost of a bathroom remodeling?",
+    answer:
+      "Costs depend on materials, appliances, and the extent of structural changes. Customizations and high-end finishes can impact the budget.",
+    defaultOpen: true,
+  },
+  {
+    question: "Can I use my bathroom during the remodeling process?",
+    answer:
+      "We aim to minimize disruptions. Temporary arrangements can be made, or alternative bathroom facilities may be provided, ensuring your convenience during the renovation.",
+  },
+  {
+    question: "Do I need permits for a bathroom remodeling project?",
+    answer:
+      "Permit requirements vary by location and project scope. Our team will guide you through the necessary permitting process to ensure compliance.",
+  },
+];
+const slug = "bathroom-remodeling";
+const seo = getServiceSeo(slug);
+---
+
+<Layout seo={seo}>
+  <ServiceLayout image={coverImage} title="Bathroom Remodeling">
+    <p class="text-graytext">
+      Revitalize your bathroom with our expert remodeling. From innovative
+      designs to seamless processes, we prioritize satisfaction. Enhance your
+      home’s value and comfort with tailored options. Trust us for excellence,
+      transforming your space with unique style and quality. Ready for a
+      refreshing change?
+    </p>
+    <CheckList size="large" items={list} class="my-5 gap-5" />
+    <p class="text-graytext my-5">
+      When an unknown printer took a galley of type and scrambled it to make a
+      type specimen book. It has survived not only five centuries, but also the
+      leap into electronic typesetting, remaining essentially unchanged not
+      finished yet again.
+    </p>
+    <DualGrid
+      image={image1}
+      title2="Bathroom Remodeling Benefits"
+      title3="Reveal a Bathing Transformation"
+      unlockList={unlockList}
+    />
+    <FrequentlyQuestions items={frequentlyQuestions} />
+  </ServiceLayout>
+</Layout>

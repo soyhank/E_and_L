@@ -1,0 +1,111 @@
+---
+import LinkDesktop from "./LinkDesktop.astro";
+import { services } from "../data";
+
+type Props = {
+  class?: string;
+};
+const { class: className } = Astro.props;
+---
+
+<nav
+  id="navDesktop"
+  class:list={["hidden lg:flex items-center gap-6 relative", className]}
+>
+  <span
+    id="bottomNavDesktop"
+    class="absolute duration-300 bottom-0 left-0 w-10 h-1 bg-black"
+    style={{
+      width: 0,
+      transform: `translateX(0)`,
+    }}></span>
+  <LinkDesktop href="/"> Home </LinkDesktop>
+  <LinkDesktop href="/about"> About us </LinkDesktop>
+  <LinkDesktop
+    href="/services"
+    subNav={services.slice(0, 5).map((service) => ({
+      link: `/services/${service.slug}`,
+      label: service.name,
+    }))}
+  >
+    Services
+  </LinkDesktop>
+  <LinkDesktop
+    href="/projects"
+    subNav={services.slice(0, 5).map((service) => ({
+      link: `/projects/${service.slug}`,
+      label: service.name,
+    }))}
+    otherMatches={["/project"]}
+  >
+    Portfolio
+  </LinkDesktop>
+  <LinkDesktop href="/contact"> Contact </LinkDesktop>
+  <LinkDesktop href="/testimonials"> Testimonials </LinkDesktop>
+</nav>
+
+<script>
+  const navDesktop = document.getElementById("navDesktop")!;
+  const bottomNavDesktop = document.getElementById("bottomNavDesktop")!;
+  const pathname = globalThis.location.pathname;
+
+  const getCurrentBottom = () => {
+    const childrenNav = navDesktop.querySelectorAll(".desktop-link-wrapper");
+    const links = [];
+    for (let i = 0; i < childrenNav.length; i++) {
+      const child = childrenNav.item(i);
+      if (child.querySelector("a")! instanceof HTMLAnchorElement) {
+        links.push(child);
+      }
+    }
+    const matchLink = links.find((linkWrapper) => {
+      const link = linkWrapper.querySelector("a")!;
+      const otherMatches = link.dataset.matches;
+      const matches = otherMatches?.split(",") || [];
+
+      if (link.pathname === "/") {
+        return link.pathname === pathname || pathname === "/";
+      }
+      return (
+        pathname.startsWith(link.pathname) ||
+        matches.find((linkMatch) => pathname.startsWith(linkMatch))
+      );
+    });
+    if (!matchLink) {
+      return {
+        width: 0,
+        x: 0,
+      };
+    }
+    return {
+      width: (matchLink as HTMLDivElement)!.offsetWidth,
+      x: (matchLink as HTMLDivElement)!.offsetLeft,
+    };
+  };
+
+  const paintCurrent = () => {
+    const event = new CustomEvent("current-nav-desktop-link", {
+      detail: getCurrentBottom(),
+    });
+
+    window.dispatchEvent(event);
+  };
+
+  navDesktop.addEventListener("mouseleave", paintCurrent);
+
+  window.addEventListener("current-nav-desktop-link", (e) => {
+    const data = (
+      e as unknown as CustomEvent<{
+        width: number;
+        x: number;
+      }>
+    ).detail;
+
+    bottomNavDesktop.style.width = `${data.width}px`;
+    bottomNavDesktop.style.transform = `translateX(${data.x}px)`;
+  });
+
+  window.addEventListener("DOMContentLoaded", () => {
+    paintCurrent();
+  });
+</script>

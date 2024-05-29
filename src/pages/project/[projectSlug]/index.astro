@@ -1,0 +1,254 @@
+---
+import type { GetStaticPaths } from "astro";
+import { projects, servicesObject, monthNames } from "../../../data";
+import Layout from "../../../layouts/Layout.astro";
+import BtnHover from "../../../components/BtnHover.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import SimpleSlider from "../../../components/SimpleSlider.astro";
+import { getProjectSeo } from "../../../utils/get_seo";
+
+export const prerender = true;
+
+export const getStaticPaths = (() => {
+  return projects.map((project) => ({
+    params: {
+      projectSlug: project.slug,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { projectSlug } = Astro.params;
+
+const project = projects.find((project) => project.slug === projectSlug)!;
+const category = servicesObject[project.serviceSlug].name;
+
+const date = project.date && new Date(project.date);
+const year = date?.getFullYear();
+const month = date?.getMonth();
+
+const images = [...project.afterImages, ...project.beforeImages];
+const videos = [
+  ...(project.afterVideos || []),
+  ...(project.beforeVideos || []),
+];
+
+const seo = getProjectSeo(projectSlug);
+---
+
+<Layout seo={seo}>
+  <article class="container py-16 article">
+    <main class="max-w-full flex flex-col gap-4">
+      <h1 class="text-darkblue text-3xl">{project.name}</h1>
+      {
+        !!project.beforeImages.length && (
+          <section>
+            <h2 class="text-darkblue text-5xl">Before</h2>
+            <div>
+              <SimpleSlider
+                images={project.beforeImages.map((img, index) => ({
+                  src: img,
+                  alt: `Before ${index + 1}`,
+                }))}
+                class="max-w-[772px] max-h-[772px]"
+              />
+            </div>
+          </section>
+        )
+      }
+      {
+        !!project.afterImages.length && (
+          <section>
+            {project.beforeImages.length > 0 && (
+              <h2 class="text-darkblue text-5xl">After</h2>
+            )}
+            <div class="text-darkblue text-5xl">
+              <SimpleSlider
+                images={project.afterImages.map((img, index) => ({
+                  src: img,
+                  alt: `Before ${index + 1}`,
+                }))}
+                class="max-w-[772px] max-h-[772px]"
+              />
+            </div>
+          </section>
+        )
+      }
+    </main>
+    <aside
+      class="max-w-full min-w-[340px] border border-[#e7e7e7] p-6 flex flex-col gap-6 text-lg"
+    >
+      <div>
+        <h2 class="text-darkblue">Location</h2>
+        <p class="text-graytext">{project.location}</p>
+      </div>
+      <hr />
+      <div>
+        <h2 class="text-darkblue">Category</h2>
+        <p class="text-graytext">{category}</p>
+      </div>
+      <hr />
+      {
+        year && month ? (
+          <div>
+            <h2 class="text-darkblue">Year Completed</h2>
+            <p class="text-graytext">
+              {monthNames[month]}, {year}
+            </p>
+          </div>
+        ) : null
+      }
+    </aside>
+    <footer id="all-images">
+      <div
+        class="max-w-full flex gap-6 flex-wrap justify-center md:justify-start"
+      >
+        {
+          images.map((img) => (
+            <Image src={img} alt={img} width={270} height={270} />
+          ))
+        }
+      </div>
+
+      <div
+        class="modal hidden fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center bg-black bg-opacity-50 p-4"
+      >
+        <div
+          class="modal-content relative bg-white max-w-[90vw] max-h-[95vh] flex justify-center items-center"
+        >
+          <button
+            aria-label="prev"
+            class="prev z-10 bg-[#F4F4F8] border border-gray-400 rounded-full w-14 h-14 flex justify-center items-center absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2"
+          >
+            <Icon name="arrow/left" size={22} />
+          </button>
+          <button
+            aria-label="next"
+            class="next z-10 bg-[#F4F4F8] border border-gray-400 rounded-full w-14 h-14 flex justify-center items-center absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2"
+          >
+            <Icon name="arrow/right" size={22} />
+          </button>
+        </div>
+      </div>
+    </footer>
+  </article>
+  <section class="container py-16 w-full flex flex-wrap gap-6">
+    {
+      videos.map((video) => {
+        return <video src={video} controls />;
+      })
+    }
+  </section>
+  <section class="container py-16 bg-[#f8f8f9]"></section>
+  <section class="container py-16 w-full flex flex-col items-center gap-6">
+    <h3 class="text-darkblue text-4xl text-center max-w-[560px]">
+      You may also want to have a look at similar projects.
+    </h3>
+    <BtnHover aria-label="Contact" href="/contact">
+      Get Started
+      <Icon name="arrow/right" />
+    </BtnHover>
+  </section>
+</Layout>
+
+<style>
+  .article {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .article {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: 1fr auto;
+      grid-template-areas:
+        "main aside"
+        "footer footer";
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+    .article footer {
+      grid-area: footer;
+    }
+    .article main {
+      grid-area: main;
+    }
+    .article aside {
+      grid-area: aside;
+    }
+  }
+</style>
+
+<script>
+  const allImagesContainer = document.querySelector("#all-images")!;
+  const imgsNoModal = allImagesContainer.querySelectorAll(
+    "div:first-child > img"
+  ) as NodeListOf<HTMLImageElement>;
+  const modal = allImagesContainer.querySelector(".modal") as HTMLDivElement;
+  const modalContent = allImagesContainer.querySelector(
+    ".modal-content"
+  ) as HTMLDivElement;
+
+  const prevButton = allImagesContainer.querySelector(".prev")!;
+  const nextButton = allImagesContainer.querySelector(".next")!;
+
+  const imgs = modalContent.querySelectorAll("img");
+
+  prevButton.addEventListener("click", () => {
+    const imageModalContent = modalContent.querySelector(
+      "img"
+    ) as HTMLImageElement;
+
+    if (imageModalContent) {
+      const currentImgIndex = [...imgsNoModal].findIndex(
+        (img) => img.src === imageModalContent.src
+      )!;
+      const prevIndex =
+        currentImgIndex === 0 ? imgsNoModal.length - 1 : currentImgIndex - 1;
+      const prevImage = imgsNoModal[prevIndex];
+      imageModalContent.src = prevImage.src;
+    }
+  });
+
+  nextButton.addEventListener("click", () => {
+    const imageModalContent = modalContent.querySelector(
+      "img"
+    ) as HTMLImageElement;
+
+    if (imageModalContent) {
+      const currentImgIndex = [...imgsNoModal].findIndex(
+        (img) => img.src === imageModalContent.src
+      )!;
+      const nextIndex =
+        imgsNoModal.length - 1 === currentImgIndex ? 0 : currentImgIndex + 1;
+      const nextImage = imgsNoModal[nextIndex];
+      imageModalContent.src = nextImage.src;
+    }
+  });
+
+  modal.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  modalContent.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+  imgsNoModal.forEach((img) => {
+    console.log(imgs);
+    img.addEventListener("click", () => {
+      modal.style.display = "flex";
+      let imageContent = modalContent.querySelector("img") as HTMLImageElement;
+
+      if (!imageContent) {
+        imageContent = document.createElement("img");
+        imageContent.style.maxHeight = "95vh";
+        imageContent.style.maxWidth = "90vw";
+        modalContent.appendChild(imageContent);
+      }
+
+      imageContent.src = img.src;
+    });
+  });
+</script>

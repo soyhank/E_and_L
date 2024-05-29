@@ -1,0 +1,79 @@
+---
+import CheckList from "../_components/CheckList.astro";
+import ServiceLayout from "../_components/ServiceLayout.astro";
+import coverImage from "./cover.jpg";
+import image1 from "./image1.jpg";
+import DualGrid from "../_components/DualGrid.astro";
+import Layout from "../../../layouts/Layout.astro";
+import FrequentlyQuestions from "../_components/FrequentlyQuestions.astro";
+import { getServiceSeo } from "../../../utils/get_seo";
+
+const list = [
+  "Our deck remodeling expertise ensures a transformative touch, revitalizing every room to reflect your style with precision.",
+  "Trust us for a seamless journey. Our meticulous craftsmanship and innovative designs guarantee a deck remodeling experience beyond expectations.",
+];
+
+const unlockList = [
+  "Enhanced Aesthetic Appeal",
+  "Improved Functionality",
+  "Increased Home Value",
+  "Personalized Comfort",
+];
+
+const frequentlyQuestions = [
+  {
+    question: "How long does a deck remodeling project typically take?",
+    answer:
+      "Timelines vary based on the project's scope, ranging from a few weeks for specific rooms to several months for extensive transformations.",
+  },
+  {
+    question: "What factors influence the cost of a deck remodel?",
+    answer:
+      "Costs depend on the chosen materials, complexity of the design, and the scale of the remodeling. Customizations may impact the budget.",
+    defaultOpen: true,
+  },
+  {
+    question: "Can I stay in my home during the deck remodeling process?",
+    answer:
+      "We aim to minimize disruptions. Temporary arrangements can be discussed for your convenience during the remodeling.",
+  },
+  {
+    question: "Are permits required for deck remodeling projects?",
+    answer:
+      "Permit requirements vary. We will guide you through the necessary steps to ensure compliance with local regulations and codes.",
+  },
+];
+const slug = "deck-remodeling-and-new";
+const seo = getServiceSeo(slug);
+---
+
+<Layout seo={seo}>
+  <ServiceLayout image={coverImage} title="Deck Remodeling and New">
+    <p class="text-graytext">
+      Elevate your living spaces with our professional “Deck Remodeling”
+      service. Our skilled team specializes in transforming exteriors with
+      innovative designs and meticulous craftsmanship. From revitalizing living
+      rooms to modernizing kitchens, our “Deck Remodeling” service brings your
+      vision to life. We prioritize both functionality and aesthetic appeal,
+      offering a range of options tailored to your preferences. Explore
+      versatile designs that seamlessly align with your lifestyle, ensuring a
+      personalized touch in every room. Our commitment extends beyond
+      renovation; we strive to create exteriors that reflect your unique style
+      and enhance the overall comfort of your home.
+    </p>
+    <CheckList size="large" items={list} class="my-5 gap-5" />
+    <p class="text-graytext my-5">
+      Elevate your home with our deck remodeling service, where innovation meets
+      transformation. From revitalizing living spaces to seamless
+      transformations, we’re committed to crafting decks that embody your unique
+      style and exceed your expectations.
+    </p>
+    <DualGrid
+      image={image1}
+      title2="Deck Remodeling Benefits"
+      title3="Unveil Your Home's Potential"
+      unlockList={unlockList}
+    />
+    <FrequentlyQuestions items={frequentlyQuestions} />
+  </ServiceLayout>
+</Layout>

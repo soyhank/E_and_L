@@ -1,0 +1,8 @@
+---
+
+const { class: className } = Astro.props
+---
+
+<div class:list={["field-group flex flex-col gap-1 col-span-2", className]}>
+  <slot />
+</div>

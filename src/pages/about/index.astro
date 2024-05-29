@@ -1,0 +1,283 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import BtnHover from "../../components/BtnHover.astro";
+import { Icon } from "astro-icon/components";
+import aboutImage from "../../assets/img/about/luis-office-home-improvements.avif";
+import about1Image from "../../assets/img/about/about-1.avif";
+import about2Image from "../../assets/img/about/about-2.avif";
+import about3Image from "../../assets/img/about/about-3.avif";
+import Services from "./_section/Services.astro";
+import Team from "./_section/Team.astro";
+import { config } from "../../data";
+import type { Schema } from "astro-seo-schema";
+import type { SEOProps } from "astro-seo";
+
+const seo: SEOProps = {
+  title: "About - E and L Home Improvements",
+  description:
+    "At E&L Home Improvements, we take pride in turning houses into dream homes. Our dedication to excellence and craftsmanship sets us apart in the world of",
+  openGraph: {
+    basic: {
+      title: "About - E and L Home Improvements",
+      type: "website",
+      image: "/metadata/about.jpg",
+    },
+    image: {
+      url: "/metadata/about.jpg",
+      width: 1920,
+      height: 881,
+    },
+  },
+  twitter: {
+    title: "About - E and L Home Improvements",
+    description:
+      "At E&L Home Improvements, we take pride in turning houses into dream homes. Our dedication to excellence and craftsmanship sets us apart in the world of.",
+    card: "summary_large_image",
+    image: "/metadata/about.jpg",
+    imageAlt: "About - E and L Home Improvements",
+  },
+};
+
+const schema: Parameters<typeof Schema>[0] = {
+  item: {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    name: "E and L Home Improvements",
+    description:
+      "Welcome to E and L Home Improvements, your trusted partner for comprehensive home transformations. At E and L, we specialize in top-notch home improvements, focusing on key areas such as bathroom and kitchen remodeling, basement transformations, precise painting, and all-encompassing maintenance.",
+    url: config.APP_BASE_URL + "/about",
+    image: config.APP_BASE_URL + "/metadata/about.jpg",
+    logo: {
+      "@type": "ImageObject",
+      url: config.APP_BASE_URL + "/logo.avif",
+      name: "E and L Home Improvements",
+    },
+    email: config.contact.email.contact,
+    address: {
+      "@type": "PostalAddress",
+      ...config.contact.address,
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: 5,
+      reviewCount: 41,
+      ratingCount: 41,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Monday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Tuesday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Wednesday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Thursday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        validFrom: "2022-01-01T00:00:00+00:00",
+        validThrough: "2030-12-31T00:00:00+00:00",
+        dayOfWeek: "Friday",
+        opens: "08:00",
+        closes: "17:00",
+      },
+    ],
+  },
+};
+---
+
+<Layout seo={seo} schema={schema}>
+  <section
+    class="container flex flex-col gap-6 items-center font-chivo font-[600]"
+  >
+    <Image
+      src={aboutImage}
+      alt="Luis in the office for home improvements"
+      width={1920}
+      height={880}
+    />
+    <p
+      class="text-darkblue text-[21px] leading-[25.2px] tracking-[1.5px] text-center max-w-[960px] italic"
+    >
+      With a solid background in the home improvement industry, Mr. Luis Lopez
+      began his career in contracting, gaining valuable experience before
+      founding his own company. Committed to quality and customer satisfaction,
+      he aims to transform houses into functional and welcoming spaces, bringing
+      homeowners{"'"} dreams to life.
+    </p>
+    <Team />
+    <h2
+      class="text-center text-[27px] leading-[2.75rem] text-darkblue max-w-[1024px] my-10"
+      ,
+    >
+      We specialize in delivering comprehensive home improvement solutions.
+    </h2>
+  </section>
+  <section class="my-16">
+    <div class="container m-auto flex flex-wrap lg:flex-nowrap gap-16">
+      <div class="wrapperImages">
+        <Image
+          src={about1Image}
+          alt="About image"
+          width={370}
+          height={494}
+          class="shadow-xl"
+        />
+        <Image
+          src={about2Image}
+          alt="About image"
+          width={300}
+          height={400}
+          class="shadow-xl"
+        />
+      </div>
+      <div class="flex flex-col gap-6 min-w-[280px]">
+        <h2
+          class="text-[32px] leading-[38px] font-chivo font-[500] text-darkblue"
+        >
+          Committed to superior quality and results.
+        </h2>
+        <hr class="w-[100px] h-[5px] bg-black" />
+        <p class="text-graytext font-uisans">
+          At E&L Home Improvements, we take pride in turning houses into dream
+          homes. Our dedication to excellence and craftsmanship sets us apart in
+          the world of home renovation. With a focus on bathrooms, kitchens, and
+          basements, we are committed to transforming your living spaces into
+          functional, stylish, and inviting areas that reflect your unique
+          vision.
+        </p>
+        <p class="text-graytext font-uisans">
+          With years of experience in the industry, we understand that your home
+          is more than just a structure; it’s a reflection of your personality
+          and a place where cherished memories are made. Our team of skilled
+          professionals is passionate about what they do and is eager to bring
+          your renovation dreams to life. We work closely with you to design and
+          execute your project to perfection, ensuring that every detail meets
+          your expectations. At E & L Home Improvements, we don’t just renovate
+          spaces; we create personalized sanctuaries for you and your family to
+          enjoy for years to come.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="container m-auto flex gap-16 flex-wrap md:flex-nowrap">
+    <div class="text-graytext flex flex-col gap-6">
+      <h2
+        class="text-darkblue text-[32px] leading-[38px] font-chivo font-[500]"
+      >
+        We are a highly skilled team of professionals with extensive experience
+        in home remodeling.
+      </h2>
+      <hr class="w-[100px] h-[5px] bg-black" />
+      <ul class="list-disc pl-6">
+        <li>
+          Our team of skilled workers is dedicated to understanding your unique
+          needs and preferences.
+        </li>
+        <li>
+          We work closely with you throughout the entire remodeling process,
+          from initial consultation to project completion, ensuring that every
+          detail is executed to perfection.
+        </li>
+        <li>
+          We specialize in providing top-notch remodeling services for
+          bathrooms, kitchens, basements, and decks.
+        </li>
+      </ul>
+      <p>
+        What sets us apart is our dedication to delivering an exceptional
+        customer experience. We understand that remodeling can be a significant
+        undertaking, and we strive to make the process as smooth and stress-free
+        as possible. Our team maintains open lines of communication, keeping you
+        informed at every step of the project, and ensuring that your questions
+        and concerns are promptly addressed.
+      </p>
+    </div>
+    <Image
+      src={about3Image}
+      alt="About image"
+      width={370}
+      height={493}
+      class="shadow-xl inline-block m-auto"
+    />
+  </section>
+  <Services />
+  <section class="my-16 container flex flex-col items-center m-auto">
+    <h2
+      class="text-center m-auto text-[32px] font-[500] leading-[2.75rem] text-darkblue max-w-[1024px] my-10"
+    >
+      It{"'"}s time to begin your project and make it a reality.
+    </h2>
+    <BtnHover
+      aria-label="Get Starter"
+      class="bg-redburgundy font-[500] px-5 m-auto flex"
+      href="/contact"
+    >
+      Get Starter <Icon name="arrow/right" />
+    </BtnHover>
+  </section>
+</Layout>
+
+<style>
+  .wrapperImages {
+    display: inline-grid;
+    grid-template-columns: 140px auto;
+    grid-template-rows: 180px auto;
+    margin: auto;
+  }
+
+  .wrapperImages > img:nth-child(1) {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
+
+  .wrapperImages > img:nth-child(2) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    justify-self: center;
+    align-self: center;
+  }
+
+  @media (min-width: 768px) {
+    .wrapperImages {
+      grid-template-columns: 270px 100px 200px;
+      grid-template-rows: 197px 294px auto;
+    }
+
+    .wrapperImages > img:nth-child(1) {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+    }
+
+    .wrapperImages > img:nth-child(2) {
+      grid-column: 2 / 4;
+      grid-row: 2 / 4;
+      justify-self: start;
+      align-self: start;
+    }
+  }
+</style>

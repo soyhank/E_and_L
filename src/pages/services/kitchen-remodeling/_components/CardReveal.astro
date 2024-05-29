@@ -1,0 +1,45 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+type Props = {
+  title: string;
+  content: string;
+  image: ImageMetadata;
+  slice?: number;
+};
+
+const { title, content, image, slice } = Astro.props;
+---
+
+<article class="relative text-center card-reveal overflow-hidden font-chivo">
+  <header class="face !px-2">
+    <Image src={image} alt={title} />
+    <h1 class="text-xl font-semibold">{title}</h1>
+  </header>
+  <main
+    class="absolute overflow-hidden top-0 left-0 w-full h-full face px-2 py-2 bg-darkred text-white translate-y-full duration-300"
+  >
+    <h2 class="text-lg md:text-xl">{title}</h2>
+    <p class="text-sm md:text-base">
+      {
+        slice
+          ? content.split(".").slice(0, -1).join(".").slice(0, slice)
+          : content
+      }
+    </p>
+  </main>
+</article>
+
+<style lang="postcss">
+  .card-reveal:hover main {
+    @apply translate-y-0;
+  }
+  .card-reveal img {
+    width: 100px;
+    height: 190px;
+  }
+  .face {
+    @apply flex flex-col items-center justify-center gap-2 px-8 py-16;
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button
+  class="nav-mobile-btn block lg:hidden cursor-pointer"
+  aria-label="Open"
+>
+  <Icon name="core/menu" size={24} />
+</button>
+
+<script>
+  const navMobileBtn = document.querySelector(".nav-mobile-btn")!;
+  const navMobileClose = document.querySelector("#nav-mobile-close")!;
+  const menuViewport = document.querySelector(".menu-viewport-container")!;
+  const menuContent = document.querySelector(".menu-viewport-content")!;
+
+  menuContent.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  menuViewport.addEventListener("click", () => {
+    menuViewport.classList.remove("open");
+  });
+
+  navMobileClose.addEventListener("click", () => {
+    const menuViewport = document.querySelector(".menu-viewport-container")!;
+    menuViewport.classList.remove("open");
+  });
+
+  navMobileBtn.addEventListener("click", () => {
+    const menuViewport = document.querySelector(
+      ".menu-viewport-container"
+    )! as HTMLDivElement;
+    menuViewport.classList.add("open");
+  });
+</script>

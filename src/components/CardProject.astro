@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import type { TService } from "../data";
+
+interface Props {
+  projectCategory: TService;
+}
+
+const { projectCategory } = Astro.props;
+
+
+---
+<a
+  href={`/projects/${projectCategory.slug}`}
+  class="border border-red-500 max-w-[372px] m-auto"
+>
+  <div class="overflow-hidden">
+    <Image
+      src={projectCategory.imageProjects!}
+      alt={projectCategory.name}
+      width={694}
+      height={486}
+      class="duration-700 hover:scale-110"
+    />
+  </div>
+  <hr class="my-1" />
+  <h2 class="text-center bg-white p-10 text-xl">
+    {projectCategory.name}
+  </h2>
+</a>

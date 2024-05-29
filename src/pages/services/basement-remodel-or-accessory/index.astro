@@ -1,0 +1,79 @@
+---
+import CheckList from "../_components/CheckList.astro";
+import ServiceLayout from "../_components/ServiceLayout.astro";
+import coverImage from "./cover.jpg";
+import image1 from "./image1.jpg";
+import DualGrid from "../_components/DualGrid.astro";
+import Layout from "../../../layouts/Layout.astro";
+import FrequentlyQuestions from "../_components/FrequentlyQuestions.astro";
+import { getServiceSeo } from "../../../utils/get_seo";
+
+const list = [
+  "Elevate your living space with our basement remodeling expertise. From cozy hideaways to functional studios, we craft spaces that inspire.",
+  "Choose us for a transformative journey. Our meticulous craftsmanship ensures a seamless and rewarding basement remodeling experience, exceeding expectations.",
+];
+
+const unlockList = [
+  "Expanded Living Space",
+  "Increased Home Value",
+  "Enhanced Energy Efficiency",
+  "Personalized Retreat",
+];
+
+const frequentlyQuestions = [
+  {
+    question: "How long does a typical basement remodeling project take?",
+    answer:
+      "Timelines vary based on the project scope, ranging from a few weeks for cosmetic changes to a few months for extensive renovations.",
+  },
+  {
+    question:
+      "Are there specific regulations or permits required for basement remodeling?",
+    answer:
+      "Permit requirements vary by location and project scope. Our team will guide you through the necessary permits to ensure compliance.",
+    defaultOpen: true,
+  },
+  {
+    question: "Can I use my basement during the remodeling process?",
+    answer:
+      "We work to minimize disruptions. Temporary arrangements or alternative spaces can be discussed for your convenience during the renovation.",
+  },
+  {
+    question: "What factors influence the cost of a basement remodel?",
+    answer:
+      "Costs depend on the project's complexity, materials used, and any structural changes. Customizations and high-end finishes can also impact the overall budget.",
+  },
+];
+
+const slug = "basement-remodel-or-accessory";
+const seo = getServiceSeo(slug);
+---
+
+<Layout seo={seo}>
+  <ServiceLayout image={coverImage} title="Basement Remodel or Accessory">
+    <p class="text-graytext">
+      Transform your basement into a functional and stylish space with our
+      expert basement remodeling service. Our skilled team specializes in
+      innovative designs and meticulous craftsmanship, creating personalized
+      retreats that align seamlessly with your vision. From cozy family rooms to
+      state-of-the-art home theaters, our basement remodeling service maximizes
+      your space’s potential, combining functionality and aesthetic appeal.
+      Explore a variety of options tailored to your preferences, ensuring a
+      customized touch. Our commitment extends beyond renovation.
+    </p>
+    <CheckList size="large" items={list} class="my-5 gap-5" />
+    <p class="text-graytext my-5">
+      Experience the extraordinary with our basement Remodeling service, where
+      innovation and transformation converge. Trust us to turn your basement
+      into a versatile sanctuary that mirrors your lifestyle, adding both value
+      and comfort to your home. Contact us today and redefine your living space.
+    </p>
+    <DualGrid
+      image={image1}
+      title2="Basement Remodeling Benefits"
+      title3="Unleash Hidden Potential: Discover the Versatile Advantages That Come with Our Basement Remodeling Services"
+      unlockList={unlockList}
+    />
+    <FrequentlyQuestions items={frequentlyQuestions} />
+  </ServiceLayout>
+</Layout>

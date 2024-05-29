@@ -1,0 +1,156 @@
+---
+import { Icon } from "astro-icon/components";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = {
+  images: (HTMLAttributes<"img"> & { src: string; alt: string })[];
+  class?: string;
+};
+
+const { images, class: className } = Astro.props;
+---
+
+<div class:list={["simple-carousel-container relative", className]}>
+  <button
+    aria-label="prev"
+    class="prev z-10 bg-[#F4F4F8] border border-gray-400 rounded-full w-14 h-14 flex justify-center items-center absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2"
+  >
+    <Icon name="arrow/left" size={22} />
+  </button>
+  <button
+    aria-label="next"
+    class="next z-10 bg-[#F4F4F8] border border-gray-400 rounded-full w-14 h-14 flex justify-center items-center absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2"
+  >
+    <Icon name="arrow/right" size={22} />
+  </button>
+  <div class:list={["simple-carousel-content flex overflow-hidden"]}>
+    {
+      images.map((img) => (
+        <img src={img.src} class="cursor-pointer" alt={img.alt} />
+      ))
+    }
+  </div>
+  <div
+    class="modal hidden fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center bg-black bg-opacity-50 p-4"
+  >
+    <div
+      class="modal-content relative bg-white max-w-[90vw] max-h-[95vh] flex justify-center items-center"
+    >
+      <button
+        aria-label="prev"
+        class="prev z-10 bg-[#F4F4F8] border border-gray-400 rounded-full w-14 h-14 flex justify-center items-center absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2"
+      >
+        <Icon name="arrow/left" size={22} />
+      </button>
+      <button
+        aria-label="next"
+        class="next z-10 bg-[#F4F4F8] border border-gray-400 rounded-full w-14 h-14 flex justify-center items-center absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2"
+      >
+        <Icon name="arrow/right" size={22} />
+      </button>
+    </div>
+  </div>
+</div>
+
+<style lang="postcss">
+.simple-carousel-container img {
+  @apply w-full h-full object-cover;
+}
+</style>
+
+<script>
+  const carousels = document.querySelectorAll(".simple-carousel-container")!;
+
+  carousels.forEach((carousel) => {
+    const imgs = carousel.querySelectorAll(
+      ".simple-carousel-content img"
+    ) as NodeListOf<HTMLImageElement>;
+    const modal = carousel.querySelector(".modal") as HTMLDivElement;
+    const modalContent = carousel.querySelector(
+      ".modal-content"
+    ) as HTMLDivElement;
+
+    const prevButtons = carousel.querySelectorAll(
+      ".simple-carousel-container .prev"
+    )!;
+    const nextButtons = carousel.querySelectorAll(
+      ".simple-carousel-container .next"
+    )!;
+
+    let index = 0;
+
+    prevButtons.forEach((prev) => {
+      prev.addEventListener("click", () => {
+        if (index === 0) {
+          index = imgs.length - 1;
+        } else {
+          index--;
+        }
+
+        const imageModalContent = modalContent.querySelector(
+          "img"
+        ) as HTMLImageElement;
+        if (imageModalContent) {
+          const currentImg = imgs[index];
+          imageModalContent.src = currentImg.src;
+        }
+
+        imgs.forEach((img: HTMLImageElement) => {
+          img.style.transform = `translateX(-${index * 100}%)`;
+        });
+      });
+    });
+
+    nextButtons.forEach((next) => {
+      next.addEventListener("click", () => {
+        if (index === imgs.length - 1) {
+          index = 0;
+        } else {
+          index++;
+        }
+
+        const imageModalContent = modalContent.querySelector(
+          "img"
+        ) as HTMLImageElement;
+        if (imageModalContent) {
+          const currentImg = imgs[index];
+          imageModalContent.src = currentImg.src;
+        }
+
+        imgs.forEach((img: HTMLImageElement) => {
+          img.style.transform = `translateX(-${index * 100}%)`;
+        });
+      });
+    });
+
+    modal.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    modalContent.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    imgs.forEach((img) => {
+      img.addEventListener("click", () => {
+        const modal = document.querySelector(".modal")! as HTMLDivElement;
+        const modalContent = document.querySelector(
+          ".modal-content"
+        )! as HTMLDivElement;
+        modal.style.display = "flex";
+        let imageContent = modalContent.querySelector(
+          "img"
+        ) as HTMLImageElement;
+
+        if (!imageContent) {
+          imageContent = document.createElement("img");
+          imageContent.style.maxHeight = "95vh";
+          imageContent.style.maxWidth = "90vw";
+          modalContent.appendChild(imageContent);
+        }
+
+        imageContent.src = img.src;
+      });
+    });
+  });
+</script>

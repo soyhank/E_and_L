@@ -1,0 +1,80 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = {
+  href: string;
+  otherMatches?: string[];
+  subNav?: { link: string; label: string }[];
+} & HTMLAttributes<"a">;
+
+const { href, class: className, otherMatches, subNav, ...props } = Astro.props;
+const pathname = Astro.url.pathname;
+const isMatch =
+  pathname === href ||
+  otherMatches?.find((link) => pathname.startsWith(link))!!;
+
+---
+
+<div
+  class="relative desktop-link-wrapper h-full flex flex-col items-center justify-center gap-2"
+  data-matches={otherMatches?.join(",")}
+>
+  <a
+    href={href}
+    data-matches={otherMatches?.join(",")}
+    class:list={[
+      "nav-menu",
+      "text-graytext hover:text-darkblue duration-300 font-chivo relative",
+      "desktop-link",
+      isMatch && "text-darkblue",
+      className,
+    ]}
+    {...props}
+  >
+    <slot />
+  </a>
+
+  {
+    subNav && (
+      <ul class="absolute w-[160px] hidden bg-white left-0 flex flex-col gap-4 items-stretch justify-center px-3 py-2">
+        {subNav.map(({ link, label }) => (
+          <li>
+            <a
+              href={link}
+              class="text-graytext hover:text-darkblue duration-300 font-chivo"
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</div>
+
+<style lang="postcss">
+  .desktop-link-wrapper:hover > ul {
+    @apply flex;
+    top: calc(100%);
+  }
+</style>
+
+<script>
+  const links = document.querySelectorAll(
+    ".desktop-link-wrapper"
+  ) as NodeListOf<HTMLAnchorElement>;
+
+  window.addEventListener("DOMContentLoaded", () => {
+    links.forEach((linkWrapper) => {
+      linkWrapper.addEventListener("mouseenter", () => {
+        const event = new CustomEvent("current-nav-desktop-link", {
+          detail: {
+            width: linkWrapper.offsetWidth,
+            x: linkWrapper.offsetLeft,
+          },
+        });
+        window.dispatchEvent(event);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,47 @@
+---
+import CardService from "../../../components/CardService.astro";
+import { services } from "../../../data";
+
+const servicesToShow = [services[0], services[2], services[1]];
+---
+
+<section class="my-16 relative container m-auto flex flex-col">
+  <div
+    style={{
+      backgroundImage: "url(/img/bg-red-grid.avif)",
+      backgroundAttachment: "fixed",
+      backgroundSize: "cover",
+      height: "516px",
+      width: "100%",
+      position: "absolute",
+      zIndex: -1,
+      top: 0,
+      left: 0,
+    }}
+  >
+  </div>
+  <header
+    class="text-center text-white inline-block my-[60px] md:my-[100px] m-auto"
+  >
+    <h2 class="text-[32px] mb-[27px] font-chivo">The most requested services.</h2>
+    <p class="max-w-[650px] m-auto font-roboto">
+      Discover excellence in our most requested services.. From bespoke designs
+      to seamless executions, experience unparalleled craftsmanship.
+    </p>
+  </header>
+  <main
+    class="grid grid-cols-1 md:grid-cols-3 items-start gap-8 flex-wrap md:flex-nowrap"
+  >
+    {
+      servicesToShow.slice(0, 3).map((service) => {
+        const cardData = {
+          img: service.image!,
+          link: `/services/${service.slug}`,
+          title: service.name,
+          description: service.largeExcerpt!,
+        };
+        return <CardService {...cardData} />;
+      })
+    }
+  </main>
+</section>

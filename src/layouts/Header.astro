@@ -1,0 +1,111 @@
+---
+import logoImage from "../assets/img/logo.avif";
+import BtnHover from "../components/BtnHover.astro";
+import { config } from "../data/config";
+import NavDesktop from "./NavDesktop.astro";
+import { Image } from "astro:assets";
+import NavMobile from "./NavMobile.astro";
+import { Icon } from "astro-icon/components";
+import LinksMobile from "./LinksMobile.astro";
+
+const HEIGHT = 80;
+---
+
+<header
+  class:list={[
+    "bg-white sticky top-0 left-0 z-[10] drop-shadow-md",
+    `h-[${HEIGHT}px]`,
+  ]}
+>
+  <div
+    class="container m-auto flex justify-between items-stretch w-full max-w-screen"
+  >
+    <a href="/">
+      <Image src={logoImage} alt="Logo" width={100} height={70} />
+    </a>
+
+    <NavDesktop class={`h-[${HEIGHT}px]`} />
+
+    <BtnHover
+      aria-label="Call Us"
+      href={"tel:+" + config.contact.phone.value}
+      target="_blank"
+      class:list={[
+        "bg-darkred rounded-xl !py-3 font-semibold self-center",
+        "!text-sm !font-medium !px-4",
+      ]}
+    >
+      (301) 309 0472
+    </BtnHover>
+
+    <NavMobile />
+  </div>
+</header>
+
+<div class="menu-viewport-container">
+  <div class="menu-viewport-content max-w-[350px] md:max-w-full w-[400px]">
+    <div
+      class="mx-auto w-full px-10 py-16 h-screen flex flex-col gap-6 relative"
+    >
+      <Icon
+        name="core/close"
+        size={24}
+        id="nav-mobile-close"
+        class="absolute top-6 right-6 cursor-pointer"
+      />
+      <Image src={logoImage} alt="Logo" width={154} height={108} />
+      <div class="flex flex-col gap-3 my-4">
+        <LinksMobile />
+      </div>
+      <p class="font-montserrat">
+        Your Trusted Partner in Home Remodeling! We take pride in transforming
+        houses into dream homes. With a passion for innovation and a commitment
+        to craftsmanship.
+      </p>
+      <div class="flex gap-3 justify-center">
+        <a
+          target="_blank"
+          href={config.networks.fb}
+          class="flex justify-center items-center bg-black w-12 h-12 rounded-full hover:scale-110 duration-300"
+        >
+          <Icon
+            name="network/facebook"
+            class="text-white"
+            fill="#ffffff"
+            width={20}
+            height={20}
+          />
+        </a>
+        <a
+          target="_blank"
+          href={config.networks.instagram}
+          class="flex justify-center items-center bg-black w-12 h-12 rounded-full hover:scale-110 duration-300"
+        >
+          <Icon
+            name="network/instagram"
+            class="text-white"
+            fill="#ffffff"
+            width={20}
+            height={20}
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="postcss">
+  .menu-viewport-container {
+    @apply flex justify-end overflow-hidden;
+    @apply h-screen fixed top-0 left-auto z-[1000] bg-gray-900/80;
+    @apply translate-x-full w-full;
+    transition: transform 0.3s ease-in-out;
+  }
+  .menu-viewport-container.open {
+    right: 0;
+    @apply translate-x-0;
+  }
+  .menu-viewport-content{
+    @apply bg-white;
+  }
+</style>

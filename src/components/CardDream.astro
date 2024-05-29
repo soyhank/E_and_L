@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import { Icon } from "astro-icon/components";
+
+export type CraftingDream = {
+  title: string;
+  description: string;
+  img?: ImageMetadata;
+  link: string;
+};
+
+type Props = CraftingDream & {
+  class?: string;
+};
+const { link, title, description, img, class: className } = Astro.props;
+---
+
+<a
+  href={link}
+  class:list={[
+    "relative text-center border border-[#E7E7E7] hover:shadow-lg md:hover:shadow-2xl duration-700",
+    "max-w-[360px] h-auto w-full",
+    "cardContainer",
+    className,
+  ]}
+>
+  <article class="w-full max-w-[360px]">
+    <header class="flex w-full flex-col items-center overflow-hidden">
+      {
+        img && (
+          <Image
+            src={img}
+            alt={title}
+            width={364}
+            height={300}
+            class="duration-300 object-cover w-full h-full max-h-[300px]"
+          />
+        )
+      }
+    </header>
+    <main class="p-8 w-full flex flex-col gap-6 bg-white">
+      <strong class="text-lg font-medium">{title}</strong>
+      <p class="text-graytext">{description}</p>
+      <footer class="flex justify-center">
+        <Icon name="arrow/right" class="opacity-0 duration-3000" />
+      </footer>
+    </main>
+  </article>
+</a>
+
+<style lang="postcss">
+  .cardContainer::before {
+    content: "";
+    transform: translateX(-50%);
+    @apply absolute top-0 left-[50%] m-auto z-10;
+    @apply w-0 h-[5px] bg-black duration-300;
+  }
+  .cardContainer:hover::before {
+    @apply w-full;
+  }
+  .cardContainer:hover footer > svg {
+    @apply opacity-100;
+  }
+  .cardContainer:hover img {
+    @apply scale-105;
+  }
+  .cardContainer main p {
+    font-family: "Roboto";
+  }
+</style>

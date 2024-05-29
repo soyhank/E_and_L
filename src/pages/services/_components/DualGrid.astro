@@ -1,0 +1,25 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import CheckList from "./CheckList.astro";
+
+type Props = {
+  image: ImageMetadata;
+  unlockList: string[];
+  title2: string;
+  title3: string;
+};
+
+const { image, title2, title3, unlockList } = Astro.props;
+---
+
+<div class="grid grid-cols-1 xl:grid-cols-2 justify-between items-center gap-6">
+  <Image src={image} alt={title2} class="w-full" />
+  <div class="py-2 flex flex-col justify-between gap-6 lg:gap-2 h-full w-full">
+    <h2 class="text-darkblue text-xl md:text-2xl font-semibold font-chivo">
+      {title2}
+    </h2>
+    <h3 class="text-lg font-chivo">{title3}</h3>
+    <CheckList size="small" items={unlockList} class="gap-3" />
+  </div>
+</div>

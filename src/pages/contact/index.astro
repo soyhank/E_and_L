@@ -1,0 +1,264 @@
+---
+import FieldGroup from "../../components/FieldGroup.astro";
+import Input from "../../components/Input.astro";
+import Label from "../../components/Label.astro";
+import Select from "../../components/Select.astro";
+import Textarea from "../../components/Textarea.astro";
+import { services } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Contact" enableRecaptcha>
+  <section class="container max-w-[800px] m-auto py-10">
+    <h1 class="text-center text-darkblue text-3xl font-montserrat font-[700]">
+      Contact
+      <br />
+      Business Hours
+      <br />
+      Mondays to Fridays: 8:00 am to 5:00 pm
+    </h1>
+    <form
+      action="?"
+      method="POST"
+      id="formContact"
+      class="my-10 flex flex-col gap-6"
+    >
+      <header class="font-montserrat">
+        <span class="text-darkred font-[400]"> SEND US A MESSAGE </span>
+        <h2 class="text-black text-4xl font-[700]">
+          We{"'"}re here to help.
+        </h2>
+      </header>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FieldGroup class="col-span-2 md:col-span-1">
+          <Label for="firstName"> First Name </Label>
+          <Input required name="firstName" placeholder="First Name" />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2 md:col-span-1">
+          <Label for="lastName"> Last Name </Label>
+          <Input required name="lastName" placeholder="First Name" />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2 md:col-span-1">
+          <Label for="email"> Email </Label>
+          <Input required name="email" placeholder="Email" type="email" />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2 md:col-span-1">
+          <Label for="phone"> Phone Number </Label>
+          <Input
+            required
+            name="phone"
+            placeholder="Phone Number"
+            type="number"
+          />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2 md:col-span-1">
+          <Label for="address"> Address </Label>
+          <Input required name="address" placeholder="Address" />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2 md:col-span-1">
+          <Label for="city"> City </Label>
+          <Input required name="city" placeholder="City" />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2">
+          <Label for="state"> State </Label>
+          <Select name="state" options={["MD", "VA", "DC"]} />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2">
+          <Label for="zip"> Zip Code </Label>
+          <Input required name="zip" placeholder="Zip Code" type="number" />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2">
+          <Label for="preferContact">
+            How would you like to be contacted?
+          </Label>
+          <Select
+            name="preferContact"
+            options={["Email", "Call", "Message", "Both"]}
+          />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2">
+          <Label for="howHearAboutUs"> How did you hear about us? </Label>
+          <Select
+            name="howHearAboutUs"
+            options={[
+              "Internet Search",
+              "Friends/Family/Referral",
+              "Truck/Yard Signs",
+              "Social Media/Houzz",
+              "Advertisement",
+              "Other",
+            ]}
+          />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2">
+          <Label for="services"> Select Services </Label>
+          <ul class="flex flex-col">
+            {
+              services.map((service) => (
+                <li class="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="services"
+                    id={service.name.replaceAll(" ", "-")}
+                    value={service.name}
+                  />
+                  <label
+                    for={service.name.replaceAll(" ", "-")}
+                    class="text-md"
+                  >
+                    {service.name}
+                  </label>
+                </li>
+              ))
+            }
+            <li class="flex items-center gap-2">
+              <input type="checkbox" name="services" id="other" value="Other" />
+              <label for="other" class="text-md"> Other </label>
+            </li>
+          </ul>
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+
+        <FieldGroup class="col-span-2">
+          <Label for="details"> Project Details </Label>
+          <Textarea
+            required
+            cols={30}
+            rows={3}
+            name="details"
+            placeholder="Message"
+          />
+          <div class="message hidden text-darkred"></div>
+        </FieldGroup>
+      </div>
+      <!-- <div
+        class="g-recaptcha"
+        data-sitekey={GOOGLE_RECAPTCHA_PUBLIC_KEY}
+        data-callback="verificarRecaptcha"
+      >
+      </div> -->
+      <button
+        aria-label="submit"
+        type="submit"
+        class:list={[
+          "py-2 px-6 rounded-md",
+          "font-[500]",
+          "text-[22px]",
+          "bg-darkred !hover:!brightness-110 text-white",
+          "disabled:cursor-not-allowed disabled:opacity-50",
+          "duration-300 hover:brightness-125",
+          "font-chivo",
+        ]}
+      >
+        Send Message
+      </button>
+    </form>
+  </section>
+</Layout>
+
+<div
+  class="alert fixed bottom-7 right-7 max-w-[290px] md:max-w-[400px] bg-white p-6 shadow-xl hidden"
+>
+  <strong></strong>
+  <p></p>
+</div>
+
+<script is:inline>
+  function verificarRecaptcha(token) {
+    // Envía el token al backend para su verificación
+    fetch("/api/submit/contact-captcha", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token: token }),
+    }).then((response) => {
+      if (response.ok) {
+        // Si la respuesta es exitosa, envía el formulario
+        document.getElementById("formContact").submit();
+      } else {
+        // Si la respuesta es negativa, muestra un mensaje de error
+        console.error("Error al verificar reCAPTCHA");
+        alert("Error al verificar reCAPTCHA");
+      }
+    });
+  }
+  console.log(verificarRecaptcha);
+</script>
+
+<script>
+  import { navigate } from "astro:transitions/client";
+  import { showAlert, showErrorFields } from "../../utils/contact";
+
+  const form = document.querySelector("form#formContact") as HTMLFormElement;
+  const btnSubmit = form.querySelector(
+    "button[type=submit]"
+  ) as HTMLButtonElement;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    btnSubmit.disabled = true;
+
+    const data: {
+      [k: string]: FormDataEntryValue | FormDataEntryValue[];
+    } = Object.fromEntries(formData.entries());
+
+    data.services = formData.getAll("services");
+
+    const {
+      error,
+      message: { title, content, fieldErrors },
+      body: _body,
+    } = await fetch("/api/submit/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(
+      (res) =>
+        res.json() as Promise<{
+          error: boolean;
+          message: {
+            title: string;
+            content: string;
+            fieldErrors: {
+              [k: string]: string[];
+            };
+          };
+          body: any;
+        }>
+    );
+
+    if (error) {
+      fieldErrors && showErrorFields(fieldErrors);
+      showAlert({ title, message: content });
+      btnSubmit.disabled = false;
+      return;
+    }
+
+    form.reset();
+    navigate("/thank-you");
+  });
+</script>

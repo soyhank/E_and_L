@@ -1,0 +1,144 @@
+---
+interface Props {
+  size?: "small" | "large";
+  class?: string;
+  id?: string;
+  messageClasses?: string;
+}
+
+const { size = "large", class: classesInherited, messageClasses } = Astro.props;
+
+const classes =
+  size === "large" ? "py-3 px-6" : "py-2 px-3 border border-darkred";
+---
+
+<form
+  class:list={["flex flex-col gap-4 max-w-[90%] w-[1000px]", classesInherited]}
+>
+  <div class="field-group">
+    <input class={classes} name="name" type="text" placeholder="Name" />
+    <div class:list={["message", messageClasses]}></div>
+  </div>
+  <div class="field-group">
+    <input
+      class={classes}
+      name="email"
+      type="text"
+      placeholder="Email address"
+    />
+    <div class:list={["message", messageClasses]}></div>
+  </div>
+  <div class="field-group">
+    <input class={classes} name="state" type="text" placeholder="State" />
+    <div class:list={["message", messageClasses]}></div>
+  </div>
+
+  <div class="field-group">
+    <input class={classes} name="zip" type="text" placeholder="Postal Code" />
+    <div class:list={["message", messageClasses]}></div>
+  </div>
+
+  <div class="field-group">
+    <input
+      class={classes}
+      name="phone"
+      type="text"
+      placeholder="Phone number"
+    />
+    <div class:list={["message", messageClasses]}></div>
+  </div>
+  <div class="field-group">
+    <textarea
+      name="message"
+      class={classes}
+      rows={size === "large" ? 4 : 2}
+      placeholder="Describe your project"></textarea>
+    <div class:list={["message", messageClasses]}></div>
+  </div>
+  <button
+    type="submit"
+    class:list={[
+      "font-bold bg-darkred hover:!brightness-110 text-white",
+      classes,
+    ]}>SEND NOW</button
+  >
+</form>
+
+<div
+  class="alert fixed bottom-7 right-7 max-w-[290px] md:max-w-[400px] bg-white p-6 shadow-xl hidden"
+>
+  <strong></strong>
+  <p></p>
+</div>
+
+<style>
+  .field-group > * {
+    width: 100%;
+  }
+</style>
+
+<script>
+  import { navigate } from "astro:transitions/client";
+  import { showAlert, showErrorFields } from "../../../utils/contact";
+
+  const forms = document.querySelectorAll(
+    "form"
+  ) as NodeListOf<HTMLFormElement>;
+
+  forms.forEach((form) => {
+    const btnSubmit = form.querySelector(
+      "button[type=submit]"
+    ) as HTMLButtonElement;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      btnSubmit.disabled = true;
+
+      const data: {
+        [k: string]: FormDataEntryValue | FormDataEntryValue[];
+      } = Object.fromEntries(formData.entries());
+
+      try {
+        const {
+          error,
+          message: { title, content, fieldErrors },
+          body: _body,
+        } = await fetch("/api/submit/landing-kitchen", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).then(
+          (res) =>
+            res.json() as Promise<{
+              error: boolean;
+              message: {
+                title: string;
+                content: string;
+                fieldErrors: {
+                  [k: string]: string[];
+                };
+              };
+              body: any;
+            }>
+        );
+
+        if (error) {
+          fieldErrors && showErrorFields(fieldErrors, form);
+          showAlert({ title, message: content });
+          btnSubmit.disabled = false;
+          return;
+        }
+
+        form.reset();
+        navigate("/thank-you");
+      } catch (error: any) {
+        console.error(error);
+        showAlert({ title: "Something went wrong", message: error.toString() });
+        btnSubmit.disabled = false;
+      }
+    });
+  });
+</script>
